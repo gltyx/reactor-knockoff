@@ -292,6 +292,7 @@ menu {
 #parts {
 	display: block;
 	overflow-y: hidden;
+	background-size: 32px;
 }
 
 /*#top,
@@ -364,7 +365,7 @@ menu {
 
 #objectives_wrapper {
 	display: table-cell;
-	background: #222C38;
+	background: #333;
 	padding: 0 4px;
 	position: relative;
 	overflow: hidden;
@@ -433,7 +434,7 @@ menu {
 	line-height: 16px;
 	text-align: right;
 	position: relative;
-	background: #222C38;
+	background: #999;
 	padding-right: 2px;
 }
 
@@ -447,26 +448,32 @@ menu {
 
 #stats_vent:before {
 	background-image: url("../img/icon_vent.gif");
+	background-size: 16px;
 }
 
 #stats_inlet:before {
 	background-image: url("../img/icon_inlet.gif");
+	background-size: 16px;
 }
 
 #stats_outlet:before {
 	background-image: url("../img/icon_outlet.gif");
+	background-size: 16px;
 }
 
 #stats_heat:before {
 	background-image: url("../img/icon_heat.gif");
+	background-size: 16px;
 }
 
 #stats_power:before {
 	background-image: url("../img/icon_power.gif");
+	background-size: 16px;
 }
 
 #stats_cash:before {
 	background-image: url("../img/icon_cash.gif");
+	background-size: 16px;
 }
 
 #reactor .row {
@@ -572,9 +579,9 @@ menu {
 #nav button {
 	padding: 0 1em .1em;
 	margin: 0;
-	border: 8px solid #76809b;
+	border: 8px solid #0f0;
 	border-image: url("../img/small_button_off.png") 8 8 stretch;
-	background-color: #76809b;
+	background-color: #999;
 	color: #fff;
 	outline: none;
 	transition: background-color .01s linear;
@@ -592,7 +599,7 @@ menu {
 #nav button:hover,
 #nav button:focus {
 	border-image: url("../img/small_button_on.png") 8 8 stretch;
-	background-color: #91a1c8;
+	background-color: #CCC;
 }
 
 #main.touch #tooltip_text button {
@@ -612,7 +619,7 @@ menu {
 #tooltip button:active,
 #nav button:active {
 	border-image: url("../img/small_button_down.png") 8 8 stretch;
-	background-color: #91a1c8;
+	background-color: #CCC;
 }
 
 #tooltip_nav {
@@ -690,15 +697,6 @@ menu {
  // Cells
 ////////////////////////// */
 
-#parts_section .cells {
-}
-
-#parts_section .cells .part,
-#parts_section .cells .part:nth-child(5n) {
-	margin-right: 40px;
-	margin-left: 10px;
-}
-
 #parts_section .cells .part:nth-child(3n) {
 	margin-right: 0;
 }
@@ -713,11 +711,12 @@ menu {
 }
 
 #reactor_wrapper {
-	background: #5C6166;
+	background: #999;
 	float: left;
 }
 
 /* uranium */
+
 #parts .part.part_uranium1 .image,
 #reactor .tile.part_uranium1,
 #upgrades .uranium .image,
@@ -837,8 +836,29 @@ menu {
 }
 
 #parts_section .part.part_protium3 .image,
+#experimental_upgrades #perpetual_protium .image,
 #reactor .tile.part_protium3 {
 	background-image: url("../img/xcell_1_4.gif");
+}
+
+/* chlorophymium */
+#parts_section .part.part_chlorophymium1 .image,
+#reactor .tile.part_chlorophymium1,
+#experimental_upgrades #chlorophymium_cells .image,
+#upgrades .chlorophymium .image {
+	background-image: url("../img/xcell_2_1.gif");
+}
+
+#parts_section .part.part_chlorophymium2 .image,
+#experimental_upgrades #lunar_chlorophymium .image,
+#reactor .tile.part_chlorophymium2 {
+	background-image: url("../img/xcell_2_2.gif");
+}
+
+#parts_section .part.part_chlorophymium3 .image,
+#experimental_upgrades #perpetual_chlorophymium .image,
+#reactor .tile.part_chlorophymium3 {
+	background-image: url("../img/xcell_2_4.gif");
 }
 
   /* //////////////////////////
@@ -1398,9 +1418,9 @@ menu {
 ////////////////////////// */
 #main:before {
 	content: " ";
-	border: 10px solid #30424b;
+	border: 10px solid #00ff00;
 	border-image: url("../img/connector_border.png") 10 10 stretch;
-	background-color: #30424b;
+	background-color: #666;
 	position: absolute;
 	left: 4px;
 	top: 4px;
@@ -1410,17 +1430,17 @@ menu {
 }
 
 #main .panel_holder:first-child .panel:first-child {
-	border: 12px solid #485667;
+	border: 12px solid #00ff00;
 	border-image: url("../img/panel_border_first_first.png") 12 12 stretch;
-	background-color: #485667;
+	background-color: #666;
 	margin: 0 3px 0 0;
 	padding: 6px 0 2px 6px;
 }
 
 #main .panel_holder:first-child .panel:last-child {
-	border: 12px solid #485667;
+	border: 12px solid #00ff00;
 	border-image: url("../img/panel_border_first_last.png") 12 12 stretch;
-	background-color: #485667;
+	background-color: #666;
 	margin: 4px 3px 0 0;
 	padding: 2px 0 6px 6px;
 	-webkit-flex: 1;
@@ -1429,9 +1449,9 @@ menu {
 }
 
 #main .panel_holder:last-child .panel {
-	border: 12px solid #485667;
+	border: 12px solid #00ff00;
 	border-image: url("../img/panel_border_last_middle.png") 12 12 stretch;
-	background-color: #485667;
+	background-color: #666;
 	margin: 0 0 4px 0;
 	padding: 2px 6px 2px 2px;
 }
@@ -1456,38 +1476,10 @@ menu {
 	border-image: url("../img/inner_border.png") 4 4 stretch;
 }
 
-/*#parts_nav_top,
-#parts_nav_bottom {
-	position: absolute;
-	z-index: 1;
-	width: 100%;
-	left: 0;
-	color: #fff;
-}
-
-#parts_nav_top {
-	border: 8px solid #eee;
-	border-image: url("../img/inner_border_alt.png") 8 8 stretch;
-	background-color: #76809b;
-	width: 100%;
-	top: 0;
-}
-
-#parts_nav_top:hover,
-#parts_nav_top:focus {
-	border-image: url("../img/inner_border_alt_active.png") 8 8 stretch;
-	background-color: #96a0bb;
-}
-
-#parts_nav_top:active {
-	border-image: url("../img/inner_border_alt_down.png") 8 8 stretch;
-	background-color: #96a0bb;
-}*/
-
 #stats_section button {
 	border: 8px solid #76809b;
 	border-image: url("../img/inner_border_alt_flip.png") 8 8 stretch;
-	background-color: #76809b;
+	background-color: #999;
 	bottom: 0;
 	color: #fff;
 }
@@ -1495,10 +1487,10 @@ menu {
 #stats_section button:hover,
 #stats_section button:focus {
 	border-image: url("../img/inner_border_alt_flip_active.png") 8 8 stretch;
-	background-color: #96a0bb;
+	background-color: #CCC;
 }
 
 #stats_section button:active {
 	border-image: url("../img/inner_border_alt_flip_down.png") 8 8 stretch;
-	background-color: #96a0bb;
+	background-color: #CCC;
 }

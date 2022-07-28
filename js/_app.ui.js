@@ -33,7 +33,7 @@ var current_vars = new Map();
 var update_vars = new Map();
 
 var perc = function(numerator, denominator, dom) {
-	var percent = 100 * current_vars.get(numerator) / current_vars.get(denominator);
+	var percent = round_percentage(current_vars.get(numerator) / current_vars.get(denominator));
 	if ( percent > 100 ) percent = 100;
 	dom.style.width = percent + '%';
 };
@@ -44,7 +44,7 @@ var update_heat_background = function (current_heat, max_heat) {
 		$reactor_background.style.backgroundColor = 'transparent';
 	} else if ( current_heat > max_heat && current_heat <= max_heat * 2 ) {
 		$reactor_background.style['will-change'] = 'opacity';
-		$reactor_background.style.backgroundColor = 'rgba(255, 0, 0, ' + (current_heat - max_heat) / max_heat + ')';
+		$reactor_background.style.backgroundColor = 'rgba(255, 0, 0, ' + round_percentage((current_heat - max_heat) / max_heat, 2)/100 + ')';
 	} else {
 		$reactor_background.style['will-change'] = 'opacity';
 		$reactor_background.style.backgroundColor = 'rgb(255, 0, 0)';
@@ -202,6 +202,13 @@ var Update_vars = function() {
 	update_vars.clear();
 };
 
+// width of percentage bar is about 28pt
+var percentage_interval = Math.round(100/28);
+
+var round_percentage = function(perc, step=1) {
+	return Math.round(perc*100/step)*step
+}
+
 // Update Interface
 // TODO: configurable interval
 var update_interface_interval = 100;
@@ -221,7 +228,8 @@ var update_interface = function() {
 		for ( var tile of ui.game.active_tiles_2d ) {
 			if ( tile.ticksUpdated ) {
 				if ( tile.part ) {
-					var width = 100 * tile.ticks/tile.part.ticks;
+					// width of percentage bar is about 28pt
+					var width = round_percentage(tile.ticks/tile.part.ticks, Math.round(100/28));
 					tile.$percent.style.width = width + '%';
 				} else {
 					tile.$percent.style.width = '0';
@@ -232,7 +240,8 @@ var update_interface = function() {
 
 			if ( tile.heat_containedUpdated ) {
 				if ( tile.part && tile.part.containment ) {
-					var width = 100 * tile.heat_contained/tile.part.containment;
+					// width of percentage bar is about 28pt
+					var width = round_percentage(tile.heat_contained/tile.part.containment, Math.round(100/28));
 					tile.$percent.style.width = width + '%';
 				} else {
 					tile.$percent.style.width = '0';

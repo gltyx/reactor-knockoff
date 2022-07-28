@@ -667,7 +667,7 @@ function* get_tile_in_range(tile, x) {
 	}
 }
 
-function* heat_exchanger6_range(tile) {
+function* row_range(tile) {
 	if ( tile.row-1 >= 0 ) yield game.tiles[tile.row-1][tile.col];
 	yield* game.tiles[tile.row].slice(0,tile.col);
 	yield* game.tiles[tile.row].slice(tile.col+1);
@@ -719,7 +719,7 @@ var update_tiles = function() {
 			if ( tile_part.category !== 'cell' || tile.ticks ) {
 				var tiles;
 				if ( tile_part.id === 'heat_exchanger6' ) {
-					tiles = heat_exchanger6_range(tile);
+					tiles = row_range(tile);
 				} else {
 					tiles = get_tile_in_range(tile, tile.part.range || 1);
 				}
@@ -1180,11 +1180,11 @@ Part.prototype.addProperty = addProperty;
 var part_obj;
 var part_settings;
 var part;
-var cell_prefixes = ['', 'Dual ', 'Quad '];
+var cell_prefixes = ['', 'Dual ', 'Quad ', "Octa ", "Hexdeca "];
 var prefixes = ['Basic ', 'Advanced ', 'Super ', 'Wonderous ', 'Ultimate '];
-var cell_power_multipliers = [1, 4, 12];
-var cell_heat_multipliers = [1, 8, 36];
-var cell_counts = [1, 2, 4, 9, 16];
+var cell_power_multipliers = [1, 4, 12, 28, 64];
+var cell_heat_multipliers = [1, 8, 36, 100, 264];
+var cell_counts = [1, 2, 4, 8, 16];
 
 var create_part = function(part, level=part.level) {
 	if ( level ) {
@@ -1355,6 +1355,7 @@ var upgrade_locations = {
 	experimental_boost: $('#experimental_boost'),
 	experimental_cells: $('#experimental_cells'),
 	experimental_cells_boost: $('#experimental_cell_boost'),
+	experimental_cells_perpetual: $('#experimental_cell_perpetual'),
 	experimental_parts: $('#experimental_parts'),
 	experimental_particle_accelerators: $('#experimental_particle_accelerators')
 };
@@ -1570,7 +1571,13 @@ var remove_part = function(remove_tile, skip_update=false, sell=false) {
 //    2 = same parts, should check ticks before replacing if needed, ie: check cell empty before replacing
 //    3 = different parts but same category, should check amount of money for replacement if needed
 var part_replaceable = function(part, tile) {
-	if ( clicked_part ){
+	console.log(
+		(!clicked_part.erequires || game.upgrade_objects[clicked_part.erequires].level)
+		)
+	if ( 
+			clicked_part 
+			&& (!clicked_part.erequires || game.upgrade_objects[clicked_part.erequires].level)
+		) {
 		if ( !part ) return 1;
 		else if ( part === clicked_part ) return 2;
 		else if ( part.part.category === clicked_part.part.category) return 3;
@@ -1973,6 +1980,10 @@ var _game_loop = function() {
 	// For storing the amount of ticks which we can assume nothing will change.
 	let no_change_ticks = Infinity;
 
+	var current = new Date()
+	let time = current.getHours()+current.getMinutes()/60+current.getSeconds()/3600;
+	let chlorophymiumMultiplier = 1-Math.pow(0.95, game.upgrade_objects['lunar_chlorophymium'].level)*(Math.cos(time*Math.PI/12)*0.5+0.5);
+
 	active_inlets.length = 0;
 	active_exchangers.length = 0;
 	active_outlets.length = 0;
@@ -1992,7 +2003,12 @@ var _game_loop = function() {
 			let tile_part = tile.part;
 			if ( tile_part.category === 'cell' ) {
 				if ( tile.ticks !== 0 ) {
-					power_add += tile.power;
+					var current = new Date()
+					if ( tile_part.part.type === "chlorophymium" ) {
+						power_add += tile.power*chlorophymiumMultiplier;
+					}else{
+						power_add += tile.power;
+					}
 					heat_add += tile.heat;
 					tile.setTicks(tile.ticks - 1);
 
@@ -2019,6 +2035,7 @@ var _game_loop = function() {
 						if ( tile_part.part.type === 'protium' ) {
 							protium_particles += tile_part.cell_count;
 							game.update_cell_power();
+							update_tiles();
 						}
 
 						if ( game.auto_buy_disabled !== true && tile_part.perpetual && game.current_money >= tile_part.cost * 1.5 ) {
@@ -2249,7 +2266,7 @@ var _game_loop = function() {
 	// Auto heat reduction
 	if ( game.current_heat > 0 ) {
 		// TODO: Set these variables up in update tiles
-		if ( game.current_heat <= max_heat ) {
+		if ( Math.round(game.current_heat) <= max_heat ) {
 			// Heat Control Operator should not interfere with passive heat loss
 			reduce_heat = max_heat / 10000;
 		} else {
@@ -2257,7 +2274,7 @@ var _game_loop = function() {
 			if ( reduce_heat < max_heat / 10000 ) {
 				reduce_heat = max_heat / 10000;
 			}
-
+			
 			for ( let tile of game.active_tiles_2d ) {
 				if ( tile.activated && tile.part && tile.part.containment ) {
 
@@ -2276,7 +2293,7 @@ var _game_loop = function() {
 	}
 
 	// Forceful Fusion
-	if ( game.heat_power_multiplier && game.current_heat > 1000 ) {
+	if ( game.heat_power_multiplier && game.current_heat > 0) {
 		power_add *= 1 + (game.heat_power_multiplier * (Math.log(game.current_heat) / Math.log(1000) / 100));
 	}
 

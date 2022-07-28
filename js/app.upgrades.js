@@ -17,7 +17,7 @@ window.upgrades = function(game) {
 			id: 'forceful_fusion',
 			type: 'other',
 			title: 'Forceful Fusion',
-			description: 'Cells produce 1% more power at 1k heat, 2% power at 2m heat etc. per level of upgrade.',
+			description: 'Cells produce 1% more power at 1k heat, 2% power at 1m heat etc. per level of upgrade.',
 			cost: 10000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -526,6 +526,18 @@ window.upgrades = function(game) {
 			}
 		},
 		{
+			id: 'chlorophymium_cells',
+			type: 'experimental_cells',
+			title: 'Chlorophymium Cells',
+			description: 'Allows you to use chlorophymium cells.',
+			erequires: 'laboratory',
+			ecost: 2500,
+			levels: 1,
+			onclick: function(upgrade) {
+				// Nothing, just required for placing parts
+			}
+		},
+		{
 			id: 'unstable_protium',
 			type: 'experimental_cells_boost',
 			title: 'Unstable Protium',
@@ -542,6 +554,56 @@ window.upgrades = function(game) {
 					part.power = part.part.power * (game.upgrade_objects['infused_cells'].level + 1) * Math.pow(2, upgrade.level) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
 					part.ticks = Math.ceil(part.part.base_ticks / Math.pow(2, upgrade.level));
 					part.updateDescription();
+				}
+			}
+		},
+		{
+			id: 'lunar_chlorophymium',
+			type: 'experimental_cells_boost',
+			title: 'Lunar Chlorophymium',
+			description: 'Chlorophymium power production is affected by the time of day 5% less (multiplicative).',
+			erequires: 'chlorophymium_cells',
+			ecost: 2500,
+			multiplier: 2,
+			onclick: function(upgrade) {
+				// Nothing, used in a formula
+			}
+		},
+		{
+			id: 'perpetual_protium',
+			type: 'experimental_cells_perpetual',
+			title: 'Perpetual Protium',
+			description: 'Protium cells are automatically replaced when they become depleted. The replacement cell will cost 1.5 times the normal cost.',
+			erequires: 'protium_cells',
+			ecost: 5000000,
+			levels: 1,
+			onclick: function(upgrade) {
+				for ( var i = 1; i <= 3; i++ ) {
+					part = game.part_objects['protium' + i];
+					if ( upgrade.level ) {
+						part.perpetual = true;
+					} else {
+						part.perpetual = false;
+					}
+				}
+			}
+		},
+		{
+			id: 'perpetual_chlorophymium',
+			type: 'experimental_cells_perpetual',
+			title: 'Perpetual Chlorophymium',
+			description: 'Chlorophymium cells are automatically replaced when they become depleted. The replacement cell will cost 1.5 times the normal cost.',
+			erequires: 'chlorophymium_cells',
+			ecost: 25000000,
+			levels: 1,
+			onclick: function(upgrade) {
+				for ( var i = 1; i <= 3; i++ ) {
+					part = game.part_objects['chlorophymium' + i];
+					if ( upgrade.level ) {
+						part.perpetual = true;
+					} else {
+						part.perpetual = false;
+					}
 				}
 			}
 		},
