@@ -604,6 +604,10 @@ var tile_reflector;
 var heat_remove;
 var transfer_multiplier = 0;
 var vent_multiplier = 0;
+var transfer_multiplier_c = 0
+var transfer_multiplier_p = 0
+var vent_multiplier_c = 0
+var vent_multiplier_p = 0
 var ri2;
 var ci2;
 var tile2;
@@ -677,6 +681,10 @@ function* row_range(tile) {
 var update_tiles = function() {
 	transfer_multiplier = 0;
 	vent_multiplier = 0;
+	transfer_multiplier_c = 0
+	transfer_multiplier_p = 0
+	vent_multiplier_c = 0
+	vent_multiplier_p = 0
 	max_power = game.altered_max_power;
 	max_heat = game.altered_max_heat;
 	total_heat = 0;
@@ -689,11 +697,6 @@ var update_tiles = function() {
 	stat_outlet = 0;
 
 	part_count = 0;
-
-	let transfer_multiplier_c = 0
-	let transfer_multiplier_p = 0
-	let vent_multiplier_c = 0
-	let vent_multiplier_v = 0
 
 	for ( tile of game.active_tiles_2d ){
 		// Enable all disabled tile in active tiles
@@ -783,9 +786,6 @@ var update_tiles = function() {
 		}
 	}
 
-	vent_multiplier = ((1 + vent_multiplier_c / 100) * (1 + vent_multiplier_p / 100)) * 100 - 1
-	transfer_multiplier = ((1 + transfer_multiplier_c / 100) * (1 + transfer_multiplier_p / 100)) * 100 - 1
-
 	for ( tile of active_cells ) {
 		tile_part = tile.part;
 
@@ -841,6 +841,11 @@ var update_tiles = function() {
 
 	ui.say('var', 'max_power', max_power);
 	ui.say('var', 'max_heat', max_heat);
+
+	vent_multiplier = (((1 + vent_multiplier_c / 200) * (1 + vent_multiplier_p / 200)) - 1) * 100
+	transfer_multiplier = (((1 + transfer_multiplier_c / 200) * (1 + transfer_multiplier_p / 200))-1) * 100
+
+	//debug.log(vent_multiplier + " " + transfer_multiplier)
 
 	stat_vent *= (1 + vent_multiplier / 100);
 	stat_inlet *= (1 + transfer_multiplier / 100);
