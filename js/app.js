@@ -742,13 +742,21 @@ var update_tiles = function() {
 				}
 			}
 
+			let transfer_multiplier_c = 0
+			let transfer_multiplier_p = 0
+			let vent_multiplier_c = 0
+			let vent_multiplier_v = 0
+
 			if ( tile_part.category === 'capacitor' ) {
-				transfer_multiplier += tile_part.part.level * game.transfer_capacitor_multiplier;
-				vent_multiplier += tile_part.part.level * game.vent_capacitor_multiplier;
+				transfer_multiplier_c += tile_part.part.level * game.transfer_capacitor_multiplier;
+				vent_multiplier_c += tile_part.part.level * game.vent_capacitor_multiplier;
 			} else if ( tile_part.category === 'reactor_plating' ) {
-				transfer_multiplier += tile_part.part.level * game.transfer_plating_multiplier;
-				vent_multiplier += tile_part.part.level * game.vent_plating_multiplier;
+				transfer_multiplier_p += tile_part.part.level * game.transfer_plating_multiplier;
+				vent_multiplier_p += tile_part.part.level * game.vent_plating_multiplier;
 			}
+
+			vent_multiplier = ((1 + vent_multiplier_c / 100) * (1 + vent_multiplier_p / 100)) * 100 - 1
+			transfer_multiplier = ((1 + transfer_multiplier_c / 100) * (1 + transfer_multiplier_p / 100)) * 100 - 1
 
 			if ( tile_part.category === 'heat_inlet' ) {
 				stat_inlet += tile_part.transfer * tile.containments.length;
