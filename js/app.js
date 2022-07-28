@@ -1571,12 +1571,8 @@ var remove_part = function(remove_tile, skip_update=false, sell=false) {
 //    2 = same parts, should check ticks before replacing if needed, ie: check cell empty before replacing
 //    3 = different parts but same category, should check amount of money for replacement if needed
 var part_replaceable = function(part, tile) {
-	console.log(
-		(!clicked_part.erequires || game.upgrade_objects[clicked_part.erequires].level)
-		)
 	if ( 
 			clicked_part 
-			&& (!clicked_part.erequires || game.upgrade_objects[clicked_part.erequires].level)
 		) {
 		if ( !part ) return 1;
 		else if ( part === clicked_part ) return 2;
@@ -1601,6 +1597,7 @@ var mouse_apply_to_tile = function(e, skip_update=false, part_replacement_result
 	     && (skip_replaceable_check || (part_replacement_result=tile_replaceable(tile)))
 	     && (part_replacement_result !== 2 || tile.activated === false || tile.ticks === 0)
 	     && (part_replacement_result !== 3 || game.current_money >= clicked_part.cost)
+		 && (!clicked_part.erequires || game.upgrade_objects[clicked_part.erequires].level)
 	     ) {
 		// Reclaim money when replacing tile
 		remove_part(tile, true, true);
