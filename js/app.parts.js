@@ -382,7 +382,7 @@ window.parts = [
 			base_cost: 1000000000000,
 			cost_multiplier: 10000,
 			base_containment: 100,
-			containment_multiplier: 1000000,
+			containment_multiplier: 1,//000000,
 			base_ep_heat: 500000000,
 			ep_heat_multiplier: 20000,
 			location: 'cooling'
@@ -399,7 +399,7 @@ window.parts = [
 			level: 6,
 			base_transfer: 1000000000000000000000000000000,
 			base_cost: 100000000000000,
-			base_containment: 100000000000000000000000000000000,
+			base_containment: 100,//000000000000000000000000000000,
 			base_ep_heat: 1600000000000000000000000000000
 		}
 	];
