@@ -690,6 +690,11 @@ var update_tiles = function() {
 
 	part_count = 0;
 
+	let transfer_multiplier_c = 0
+	let transfer_multiplier_p = 0
+	let vent_multiplier_c = 0
+	let vent_multiplier_v = 0
+
 	for ( tile of game.active_tiles_2d ){
 		// Enable all disabled tile in active tiles
 		if ( tile.enabled === false ){
@@ -742,11 +747,6 @@ var update_tiles = function() {
 				}
 			}
 
-			let transfer_multiplier_c = 0
-			let transfer_multiplier_p = 0
-			let vent_multiplier_c = 0
-			let vent_multiplier_v = 0
-
 			if ( tile_part.category === 'capacitor' ) {
 				transfer_multiplier_c += tile_part.part.level * game.transfer_capacitor_multiplier;
 				vent_multiplier_c += tile_part.part.level * game.vent_capacitor_multiplier;
@@ -754,9 +754,6 @@ var update_tiles = function() {
 				transfer_multiplier_p += tile_part.part.level * game.transfer_plating_multiplier;
 				vent_multiplier_p += tile_part.part.level * game.vent_plating_multiplier;
 			}
-
-			vent_multiplier = ((1 + vent_multiplier_c / 100) * (1 + vent_multiplier_p / 100)) * 100 - 1
-			transfer_multiplier = ((1 + transfer_multiplier_c / 100) * (1 + transfer_multiplier_p / 100)) * 100 - 1
 
 			if ( tile_part.category === 'heat_inlet' ) {
 				stat_inlet += tile_part.transfer * tile.containments.length;
@@ -785,6 +782,9 @@ var update_tiles = function() {
 			}
 		}
 	}
+
+	vent_multiplier = ((1 + vent_multiplier_c / 100) * (1 + vent_multiplier_p / 100)) * 100 - 1
+	transfer_multiplier = ((1 + transfer_multiplier_c / 100) * (1 + transfer_multiplier_p / 100)) * 100 - 1
 
 	for ( tile of active_cells ) {
 		tile_part = tile.part;
