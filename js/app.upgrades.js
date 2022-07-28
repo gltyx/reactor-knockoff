@@ -17,7 +17,7 @@ window.upgrades = function(game) {
 			id: 'forceful_fusion',
 			type: 'other',
 			title: 'Forceful Fusion',
-			description: 'Cells produce 1% more power at 1k heat, 2% power at 1m heat etc. per level of upgrade.',
+			description: 'Cells produce 1% more power at 1k heat, 2% power at 1m heat etc. per level of upgrade (additive with self).',
 			cost: 10000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -52,7 +52,7 @@ window.upgrades = function(game) {
 			id: 'improved_piping',
 			type: 'other',
 			title: 'Improved Piping',
-			description: 'Venting manually is 10x as effective per level of upgrade.',
+			description: 'Venting manually is 10x as effective per level of upgrade (multiplicative).',
 			cost: 100,
 			multiplier: 20,
 			onclick: function(upgrade) {
@@ -64,7 +64,7 @@ window.upgrades = function(game) {
 			id: 'improved_alloys',
 			type: 'other',
 			title: 'Improved Alloys',
-			description: 'Plating holds 100% more heat per level of upgrade.',
+			description: 'Plating holds 100% more heat per level of upgrade (additive with self).',
 			cost: 5000,
 			multiplier: 5,
 			onclick: function(upgrade) {
@@ -82,7 +82,7 @@ window.upgrades = function(game) {
 			id: 'improved_power_lines',
 			type: 'other',
 			title: 'Improved Power Lines',
-			description: 'Sells 1% of your power each tick per level of upgrade.',
+			description: 'Sells 1% of your power each tick per level of upgrade (additive).',
 			cost: 100,
 			multiplier: 10,
 			onclick: function(upgrade) {
@@ -93,7 +93,7 @@ window.upgrades = function(game) {
 			id: 'improved_wiring',
 			type: 'other',
 			title: 'Improved Wiring',
-			description: 'Capacitors hold +100% power and heat per level of upgrade.',
+			description: 'Capacitors hold +100% power and heat per level of upgrade (additive with self).',
 			cost: 5000,
 			multiplier: 5,
 			onclick: function(upgrade) {
@@ -128,7 +128,7 @@ window.upgrades = function(game) {
 			id: 'improved_coolant_cells',
 			type: 'other',
 			title: 'Improved Coolant Cells',
-			description: 'Coolant cells hold 100% more heat per level of upgrade.',
+			description: 'Coolant cells hold 100% more heat per level of upgrade (additive with self).',
 			cost: 5000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -145,7 +145,7 @@ window.upgrades = function(game) {
 			id: 'improved_reflector_density',
 			type: 'other',
 			title: 'Improved Reflector Density',
-			description: 'Reflectors last 100% longer per level of upgrade.',
+			description: 'Reflectors last 100% longer per level of upgrade (additive with self).',
 			cost: 5000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -161,7 +161,7 @@ window.upgrades = function(game) {
 			id: 'improved_neutron_reflection',
 			type: 'other',
 			title: 'Improved Neutron Reflection',
-			description: 'Reflectors generate an additional 1% power per level of upgrade.',
+			description: 'Reflectors generate an additional 1% of their base power per level of upgrade (additive with self).',
 			cost: 5000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -195,7 +195,7 @@ window.upgrades = function(game) {
 			id: 'improved_heat_exchangers',
 			type: 'exchangers',
 			title: 'Improved Heat Exchangers',
-			description: 'Heat Exchangers, Inlets and Outlets hold and exchange 100% more heat per level of upgrade',
+			description: 'Heat Exchangers, Inlets and Outlets hold and exchange 100% more heat per level of upgrade (additive with self).',
 			cost: 600,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -221,7 +221,7 @@ window.upgrades = function(game) {
 			id: 'reinforced_heat_exchangers',
 			type: 'exchangers',
 			title: 'Reinforced Heat Exchangers',
-			description: 'Each plating increases the amount of heat that exchangers can exchange by 1% per level of upgrade per level of plating.',
+			description: 'Each plating increases the amount of heat that exchangers can exchange by 0.5% per level of upgrade per level of plating (additive with self).',
 			cost: 1000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -232,7 +232,7 @@ window.upgrades = function(game) {
 			id: 'active_exchangers',
 			type: 'exchangers',
 			title: 'Active Exchangers',
-			description: 'Each capacitor increases the amount of heat that exchangers can exchange by 1% per level of upgrade per level of capacitor.',
+			description: 'Each capacitor increases the amount of heat that exchangers can exchange by 0.5% per level of upgrade per level of capacitor (additive with self).',
 			cost: 1000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -245,7 +245,7 @@ window.upgrades = function(game) {
 			id: 'improved_heat_vents',
 			type: 'vents',
 			title: 'Improved Heat Vents',
-			description: 'Vents hold and vent 100% more heat per level of upgrade.',
+			description: 'Vents hold and vent 100% more heat per level of upgrade (additive with self).',
 			cost: 250,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -262,7 +262,7 @@ window.upgrades = function(game) {
 			id: 'improved_heatsinks',
 			type: 'vents',
 			title: 'Improved Heatsinks',
-			description: 'Each plating increases the amount of heat that vents can vent by 1% per level of upgrade per level of plating.',
+			description: 'Each plating increases the amount of heat that vents can vent by 1% per level of upgrade per level of plating (additive with self).',
 			cost: 1000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -273,7 +273,7 @@ window.upgrades = function(game) {
 			id: 'active_venting',
 			type: 'vents',
 			title: 'Active Venting',
-			description: 'Each capacitor increases the effectiveness of heat that vents can vent by 1% per level of upgrade per level of capacitor.',
+			description: 'Each capacitor increases the effectiveness of heat that vents can vent by 1% per level of upgrade per level of capacitor (additive with self).',
 			cost: 1000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -344,7 +344,7 @@ window.upgrades = function(game) {
 			id: 'infused_cells',
 			type: 'experimental_boost',
 			title: 'Infused Cells',
-			description: 'Each fuel cell produces an additional 100% base power per level of upgrade.',
+			description: 'Each fuel cell produces an additional 100% base power per level of upgrade (additive with self).',
 			erequires: 'laboratory',
 			ecost: 50,
 			multiplier: 2,
@@ -356,7 +356,7 @@ window.upgrades = function(game) {
 			id: 'unleashed_cells',
 			type: 'experimental_boost',
 			title: 'Unleashed Cells',
-			description: 'Each fuel cell produces two times their base heat and power per level of upgrade.',
+			description: 'Each fuel cell produces two times their base heat and power per level of upgrade (multiplicative).',
 			erequires: 'laboratory',
 			ecost: 100,
 			multiplier: 2,
@@ -378,7 +378,7 @@ window.upgrades = function(game) {
 			id: 'quantum_buffering',
 			type: 'experimental_boost',
 			title: 'Quantum Buffering',
-			description: 'Capacitors and platings provide twice as much reactor power and heat capacity, and capacitors can contain twice as much heat per level of upgrade.',
+			description: 'Capacitors and platings provide twice as much reactor power and heat capacity, and capacitors can contain twice as much heat per level of upgrade (multiplicative).',
 			erequires: 'laboratory',
 			ecost: 50,
 			multiplier: 2,
@@ -400,7 +400,7 @@ window.upgrades = function(game) {
 			id: 'full_spectrum_reflectors',
 			type: 'experimental_boost',
 			title: 'Full Spectrum Reflectors',
-			description: 'Reflectors gain an additional 100% of their base power reflection per level of upgrade.',
+			description: 'Reflectors gain an additional 100% of their base power reflection per level of upgrade (additive with self).',
 			erequires: 'laboratory',
 			ecost: 50,
 			multiplier: 2,
@@ -417,7 +417,7 @@ window.upgrades = function(game) {
 			id: 'fluid_hyperdynamics',
 			type: 'experimental_boost',
 			title: 'Fluid Hyperdynamics',
-			description: 'Heat vents, exchangers, inlets and outlets are two times as effective per level of upgrade.',
+			description: 'Heat vents, exchangers, inlets and outlets are two times as effective per level of upgrade (multiplicative).',
 			erequires: 'laboratory',
 			ecost: 50,
 			multiplier: 2,
@@ -447,7 +447,7 @@ window.upgrades = function(game) {
 			id: 'fractal_piping',
 			type: 'experimental_boost',
 			title: 'Fractal Piping',
-			description: 'Heat vents and exchangers hold two times their base heat per level of upgrade.',
+			description: 'Heat vents and exchangers hold two times their base heat per level of upgrade (multiplicative).',
 			erequires: 'laboratory',
 			ecost: 50,
 			multiplier: 2,
@@ -469,7 +469,7 @@ window.upgrades = function(game) {
 			id: 'ultracryonics',
 			type: 'experimental_boost',
 			title: 'Ultracryonics',
-			description: 'Coolant cells hold two times their base heat per level of upgrade.',
+			description: 'Coolant cells hold two times their base heat per level of upgrade (multiplicative).',
 			erequires: 'laboratory',
 			ecost: 50,
 			multiplier: 2,
@@ -485,7 +485,7 @@ window.upgrades = function(game) {
 			id: 'phlembotinum_core',
 			type: 'experimental_boost',
 			title: 'Phlembotinum Core',
-			description: 'Increase the base heat and power storage of the reactor by four times per level of upgrade.',
+			description: 'Increase the base heat and power storage of the reactor by four times per level of upgrade (multiplicative).',
 			erequires: 'laboratory',
 			ecost: 50,
 			multiplier: 2,
@@ -541,7 +541,7 @@ window.upgrades = function(game) {
 			id: 'unstable_protium',
 			type: 'experimental_cells_boost',
 			title: 'Unstable Protium',
-			description: 'Protium cells last half as long and product twice as much power and heat per level.',
+			description: 'Protium cells last half as long and product twice as much power and heat per level (multiplicative).',
 			erequires: 'protium_cells',
 			ecost: 500,
 			multiplier: 2,
@@ -722,7 +722,7 @@ window.upgrades = function(game) {
 			id: 'improved_particle_accelerators' + i,
 			type: 'experimental_particle_accelerators',
 			title: 'Improved ' + game.part_objects['particle_accelerator' + i].part.title,
-			description: 'Increase the maximum heat that ' + game.part_objects['particle_accelerator' + i].part.title + 's can use to create Exotic Particles by 100% per level of upgrade.',
+			description: 'Increase the maximum heat that ' + game.part_objects['particle_accelerator' + i].part.title + 's can use to create Exotic Particles by 100% per level of upgrade (additive with self).',
 			erequires: 'laboratory',
 			ecost: 200 * i,
 			multiplier: 2,
@@ -742,7 +742,7 @@ window.upgrades = function(game) {
 		{
 			type: 'cell_power',
 			title: 'Potent ',
-			description: ' cells produce 100% more power per level of upgrade.',
+			description: ' cells produce 100% more power per level of upgrade (additive with self).',
 			onclick: function(upgrade) {
 				game.update_cell_power();
 				var part;
@@ -755,7 +755,7 @@ window.upgrades = function(game) {
 		{
 			type: 'cell_tick',
 			title: 'Enriched ',
-			description: ' cells last twice as long per level of upgrade.',
+			description: ' cells last twice as long per level of upgrade (multiplicative).',
 			onclick: function(upgrade) {
 				var part;
 				for ( var i = 1; i <= 3; i++ ) {
