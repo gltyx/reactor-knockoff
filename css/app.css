@@ -861,6 +861,26 @@ menu {
 	background-image: url("../img/xcell_2_4.gif");
 }
 
+/* mitochondrium */
+#parts_section .part.part_mitochondrium1 .image,
+#reactor .tile.part_mitochondrium1,
+#experimental_upgrades #mitochondrium_cells .image,
+#upgrades .mitochondrium .image {
+	background-image: url("../img/xcell_3_1.gif");
+}
+
+#parts_section .part.part_mitochondrium2 .image,
+#experimental_upgrades #energized_mitochondrium .image,
+#reactor .tile.part_mitochondrium2 {
+	background-image: url("../img/xcell_3_2.gif");
+}
+
+#parts_section .part.part_mitochondrium3 .image,
+#experimental_upgrades #perpetual_mitochondrium .image,
+#reactor .tile.part_mitochondrium3 {
+	background-image: url("../img/xcell_3_4.gif");
+}
+
   /* //////////////////////////
  // Reflectors
 ////////////////////////// */
@@ -915,7 +935,7 @@ menu {
 }
 
 #parts .part.part_capacitor2 .image,
-#reactor .tile.part_capacitor2{
+#reactor .tile.part_capacitor2 {
 	background-image: url("../img/capacitor_2.gif");
 }
 

@@ -1023,6 +1023,7 @@ var Part = class {
 		this.range = part.base_range;
 		this.ep_heat = part.base_ep_heat;
 		this.erequires = part.erequires || null;
+		this.erequiresLevel = part.erequiresLevel || null;
 		this.cost = part.base_cost;
 		this.perpetual = false;
 		this.description = '';
@@ -1051,6 +1052,7 @@ var Part = class {
 			.replace(/%count/, [1, 2, 4][this.part.level - 1])
 			.replace(/%power/, fmt(this.power))
 			.replace(/%heat/, fmt(this.heat))
+			.replace(/%max_power/, fmt(this.max_power))
 			;
 
 		if ( tile ) {
@@ -1179,7 +1181,7 @@ var Part = class {
 		} else {
 			$tooltip_description.textContent = this.description;
 
-			if ( this.erequires && !game.upgrade_objects[this.erequires].level ) {
+			if ( this.erequires && !(game.upgrade_objects[this.erequires].level >= this.erequiresLevel) ) {
 				$tooltip_cost.textContent = 'LOCKED';
 			} else {
 				$tooltip_cost.textContent = fmt(this.cost);
@@ -1211,7 +1213,8 @@ var create_part = function(part, level=part.level) {
 			part.title = (cell_prefixes[level -1] || '') + part.title;
 
 			if ( level > 1 ) {
-				part.base_description = multi_cell_description;
+				part.base_description = part.base_description
+				.replace('%single_cell_description', '%multi_cell_description');
 			}
 			part.power = part.base_power * cell_power_multipliers[level - 1];
 			part.heat = part.base_heat * cell_heat_multipliers[level - 1];
@@ -1284,13 +1287,17 @@ for ( pi = 0, pl = parts.length; pi < pl; pi++ ) {
 	}
 }
 
-game.update_cell_power = function() {
+game.update_cell_power = function(type) {
 	var part;
+	var current = new Date();
+	let time = current.getHours()+current.getMinutes()/60+current.getSeconds()/3600;
+	let chlorophymiumMultiplier = 1-Math.pow(0.95, game.upgrade_objects['lunar_chlorophymium'].level)*(Math.cos(time*Math.PI/12)*0.5+0.5);
+	let mitochondriumPower = max_power/1000;
 
 	for ( var i = 0, l = game.part_objects_array.length; i < l; i++ ) {
 		part = game.part_objects_array[i];
 
-		if ( part.category === 'cell' ) {
+		if ( part.category === 'cell' && (!type || part.part.type === type)) {
 			if ( game.upgrade_objects['cell_power_' + part.part.type] ) {
 				part.base_power = part.part.base_power * (game.upgrade_objects['cell_power_' + part.part.type].level + game.upgrade_objects['infused_cells'].level + 1) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
 				part.power = part.part.power * (game.upgrade_objects['cell_power_' + part.part.type].level + game.upgrade_objects['infused_cells'].level + 1) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
@@ -1305,6 +1312,16 @@ game.update_cell_power = function() {
 				part.base_power *= 1 + protium_particles / 10;
 				part.power = part.part.power * (game.upgrade_objects['infused_cells'].level + 1) * Math.pow(2, game.upgrade_objects['unstable_protium'].level) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
 				part.power *= 1 + protium_particles / 10;
+			}
+			if (part.part.type == 'chlorophymium') {
+				part.base_power = part.part.base_power * chlorophymiumMultiplier * (game.upgrade_objects['infused_cells'].level + 1) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
+				part.power = part.part.power * chlorophymiumMultiplier * (game.upgrade_objects['infused_cells'].level + 1) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
+			}
+			if ( part.part.type === 'mitochondrium' ) {
+				part.max_base_power = part.part.base_power * (game.upgrade_objects['infused_cells'].level + 1) * Math.pow(10, game.upgrade_objects['energized_mitochondrium'].level) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
+				part.base_power = Math.min(part.max_base_power, mitochondriumPower*[1, 4, 12][part.part.level - 1])
+				part.max_power = part.part.power * (game.upgrade_objects['infused_cells'].level + 1) * Math.pow(10, game.upgrade_objects['energized_mitochondrium'].level) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
+				part.power = Math.min(part.max_power, mitochondriumPower*[1, 4, 12][part.part.level - 1])
 			}
 		}
 	}
@@ -1361,7 +1378,10 @@ var upgrade_locations = {
 	cell_tick_upgrades: $('#cell_tick_upgrades'),
 	cell_power_upgrades: $('#cell_power_upgrades'),
 	cell_perpetual_upgrades: $('#cell_perpetual_upgrades'),
-	other: $('#other_upgrades'),
+	other1: $('#other1_upgrades'),
+	other2: $('#other2_upgrades'),
+	other3: $('#other3_upgrades'),
+	other4: $('#other4_upgrades'),
 	vents: $('#vent_upgrades'),
 	exchangers: $('#exchanger_upgrades'),
 	experimental_laboratory: $('#experimental_laboratory'),
@@ -1401,12 +1421,16 @@ var upgrade_func = function(upgrade) {
 		return;
 	} else if (
 		upgrade.ecost
-		&& (!upgrade.erequires || game.upgrade_objects[upgrade.erequires].level)
+		&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
 		&& game.current_exotic_particles >= upgrade.ecost
 	) {
 		game.current_exotic_particles -= upgrade.ecost;
 		ui.say('var', 'current_exotic_particles', game.current_exotic_particles);
-	} else if ( upgrade.cost && game.current_money >= upgrade.cost ) {
+	} else if ( 
+		upgrade.cost 
+		&& game.current_money >= upgrade.cost 
+		&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
+	) {
 		game.current_money -= upgrade.cost;
 		ui.say('var', 'current_money', game.current_money);
 	} else {
@@ -1455,12 +1479,13 @@ window.check_upgrades_affordability = function( ) {
 			&& (
 				(
 					upgrade.cost
+					&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
 					&& game.current_money >= upgrade.cost
 				)
 				||
 				(
 					upgrade.ecost
-					&& (!upgrade.erequires || game.upgrade_objects[upgrade.erequires].level)
+					&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
 					&& (game.current_exotic_particles > upgrade.ecost)
 				)
 			)
@@ -1610,7 +1635,7 @@ var mouse_apply_to_tile = function(e, skip_update=false, part_replacement_result
 	     && (skip_replaceable_check || (part_replacement_result=tile_replaceable(tile)))
 	     && (part_replacement_result !== 2 || tile.activated === false || tile.ticks === 0)
 	     && (part_replacement_result !== 3 || game.current_money >= clicked_part.cost)
-		 && (!clicked_part.erequires || game.upgrade_objects[clicked_part.erequires].level)
+		 && (!clicked_part.erequires || (game.upgrade_objects[clicked_part.erequires].level >= clicked_part.erequiresLevel))
 	     ) {
 		// Reclaim money when replacing tile
 		remove_part(tile, true, true);
@@ -1989,10 +2014,9 @@ var _game_loop = function() {
 	let melting_down = false;
 	// For storing the amount of ticks which we can assume nothing will change.
 	let no_change_ticks = Infinity;
-
-	var current = new Date()
-	let time = current.getHours()+current.getMinutes()/60+current.getSeconds()/3600;
-	let chlorophymiumMultiplier = 1-Math.pow(0.95, game.upgrade_objects['lunar_chlorophymium'].level)*(Math.cos(time*Math.PI/12)*0.5+0.5);
+	game.update_cell_power('chlorophymium');
+	game.update_cell_power('mitochondrium');
+	update_tiles();
 
 	active_inlets.length = 0;
 	active_exchangers.length = 0;
@@ -2013,12 +2037,7 @@ var _game_loop = function() {
 			let tile_part = tile.part;
 			if ( tile_part.category === 'cell' ) {
 				if ( tile.ticks !== 0 ) {
-					var current = new Date()
-					if ( tile_part.part.type === "chlorophymium" ) {
-						power_add += tile.power*chlorophymiumMultiplier;
-					}else{
-						power_add += tile.power;
-					}
+					power_add += tile.power;
 					heat_add += tile.heat;
 					tile.setTicks(tile.ticks - 1);
 
@@ -2044,7 +2063,7 @@ var _game_loop = function() {
 					if ( tile.ticks === 0 ) {
 						if ( tile_part.part.type === 'protium' ) {
 							protium_particles += tile_part.cell_count;
-							game.update_cell_power();
+							game.update_cell_power('protium');
 							update_tiles();
 						}
 
@@ -2482,14 +2501,14 @@ window.check_affordability = function() {
 			&&
 				(
 					part.cost > game.current_money
-					|| (part.erequires && !game.upgrade_objects[part.erequires].level)
+					|| (part.erequires && !(game.upgrade_objects[part.erequires].level >= part.erequiresLevel))
 				)
 		) {
 			part.setAffordable(false);
 		} else if ( !part.affordable ) {
 			if (
 				part.cost <= game.current_money
-				&& (!part.erequires || game.upgrade_objects[part.erequires].level)
+				&& (!part.erequires || (game.upgrade_objects[part.erequires].level >= part.erequiresLevel))
 			) {
 				part.setAffordable(true);
 			} else if ( prev_part && prev_part.affordable ) {

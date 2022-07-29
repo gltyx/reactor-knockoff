@@ -8,6 +8,7 @@ var Upgrade = function(upgrade) {
 	this.cost = 0;
 	this.part = upgrade.part || null;
 	this.erequires = upgrade.erequires || null;
+	this.erequiresLevel = upgrade.erequiresLevel || null;
 	this.ecost = upgrade.ecost || 0;
 	this.$el = $('<button class="upgrade">');
 	this.$el.id = upgrade.id;
