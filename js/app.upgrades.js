@@ -16,7 +16,7 @@ window.upgrades = function(game) {
 		{
 			id: 'forceful_fusion',
 			type: 'other1',
-			title: 'Forceful Fusion',
+			title: 'Forceful Fission',
 			description: 'Cells produce 1% more power at 1k heat, 2% power at 1m heat etc. per level of upgrade (additive with self).',
 			cost: 10000,
 			multiplier: 100,
@@ -33,20 +33,6 @@ window.upgrades = function(game) {
 			cost: 1000000,
 			levels: 1,
 			onclick: function(upgrade) {
-			}
-		},
-		{
-			id: 'heat_outlet_control_operator',
-			type: 'other1',
-			title: 'Better Heat Control Operator',
-			description: 'Your reactor outlets no longer output more heat than what the connected vents can handle.',
-			erequires: 'heat_control_operator',
-			erequiresLevel: 1,
-			// TODO: Figure out a good price for this
-			cost: 10000000,
-			levels: 1,
-			onclick: function(upgrade) {
-				game.heat_outlet_controlled = upgrade.level;
 			}
 		},
 		{
@@ -72,7 +58,7 @@ window.upgrades = function(game) {
 				var part;
 				for ( var i = 1; i <= 6; i++ ) {
 					part = game.part_objects['reactor_plating' + i];
-					part.reactor_heat = part.part.base_reactor_heat * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['quantum_buffering'].level);
+					part.reactor_heat = part.part.base_reactor_heat * ( upgrade.level + 1 ) * ( game.upgrade_objects['improved_alloys_2'].level + 1 ) * Math.pow(2, game.upgrade_objects['quantum_buffering'].level);
 					part.updateDescription();
 				}
 			}
@@ -87,7 +73,7 @@ window.upgrades = function(game) {
 			cost: 100,
 			multiplier: 10,
 			onclick: function(upgrade) {
-				game.auto_sell_multiplier = .01 * upgrade.level;
+				game.auto_sell_multiplier = .01 * (upgrade.level + game.upgrade_objects['improved_power_lines'].level);
 			}
 		},
 		{
@@ -101,28 +87,10 @@ window.upgrades = function(game) {
 				var part;
 				for ( var i = 1; i <= 6; i++ ) {
 					part = game.part_objects['capacitor' + i];
-					part.reactor_power = part.part.base_reactor_power * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['quantum_buffering'].level);
-					part.containment = part.part.base_containment * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['quantum_buffering'].level);
+					part.reactor_power = part.part.base_reactor_power * ( game.upgrade_objects['improved_wiring_2'].level + 1 ) * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['quantum_buffering'].level);
+					part.containment = part.part.base_containment * ( game.upgrade_objects['improved_wiring_2'].level + 1 ) * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['quantum_buffering'].level);
 					part.updateDescription();
 				}
-			}
-		},
-		{
-			id: 'perpetual_capacitors',
-			type: 'other1',
-			title: 'Perpetual Capacitors',
-			description: 'If capacitors are on a cool surface when they go over their maximum heat containment, the heat is vented directly into the reactor and the capacitor is replaced. The capacitor costs 10 times the normal cost.',
-			cost: 1000000000000000000,
-			multiplier: 5,
-			levels: 1,
-			onclick: function(upgrade) {
-				/* TODO: ponder this - it's part-wide so it's basically just a setting
-				var part;
-				for ( var i = 1; i <= 6; i++ ) {
-					part = game.part_objects['capacitor' + i];
-					part.perpetual = upgrade.level > 0 ? true : false;
-					part.updateDescription();
-				}*/
 			}
 		},
 		{
@@ -135,7 +103,7 @@ window.upgrades = function(game) {
 			onclick: function(upgrade) {
 				for ( var i = 1; i <= 6; i++ ) {
 					part = game.part_objects['coolant_cell' + i];
-					part.containment = part.part.base_containment * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['ultracryonics'].level);
+					part.containment = part.part.base_containment * ( game.upgrade_objects['improved_coolant_cells_2'].level + 1 ) * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['ultracryonics'].level);
 					part.updateDescription();
 				}
 			}
@@ -153,7 +121,7 @@ window.upgrades = function(game) {
 				var part;
 				for ( var i = 1; i <= 6; i++ ) {
 					part = game.part_objects['reflector' + i];
-					part.ticks = part.part.base_ticks * ( upgrade.level + 1 );
+					part.ticks = part.part.base_ticks * ( game.upgrade_objects['improved_reflector_density_2'].level + 1 ) * ( upgrade.level + 1 );
 					part.updateDescription();
 				}
 			}
@@ -169,7 +137,7 @@ window.upgrades = function(game) {
 				var part;
 				for ( var i = 1; i <= 6; i++ ) {
 					part = game.part_objects['reflector' + i];
-					part.power_increase = part.part.base_power_increase * (1 + (upgrade.level / 100)) + (part.part.base_power_increase * (game.upgrade_objects['full_spectrum_reflectors'].level));
+					part.power_increase = part.part.base_power_increase * (1 + (game.upgrade_objects['improved_neutron_reflection_2'].level / 100)) * (1 + (upgrade.level / 100)) + (part.part.base_power_increase * (game.upgrade_objects['full_spectrum_reflectors'].level));
 					part.updateDescription();
 				}
 			}
@@ -303,7 +271,7 @@ window.upgrades = function(game) {
 		// Expanding
 		{
 			id: 'expand_reactor_rows',
-			type: 'other1',
+			type: 'other2',
 			title: 'Expand Reactor Rows',
 			description: 'Add one row to the reactor for each level of the upgrade.',
 			cost: 100,
@@ -315,7 +283,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'expand_reactor_cols',
-			type: 'other1',
+			type: 'other2',
 			title: 'Expand Reactor Cols',
 			description: 'Add one column to the reactor for each level of the upgrade.',
 			cost: 100,
@@ -323,6 +291,141 @@ window.upgrades = function(game) {
 			multiplier: 100,
 			onclick: function(upgrade) {
 				game.cols = game.base_cols + upgrade.level;
+			}
+		},
+		{
+			id: 'heat_outlet_control_operator',
+			type: 'other2',
+			title: 'Better Heat Control Operator',
+			description: 'Your reactor outlets no longer output more heat than what the connected vents can handle.',
+			erequires: 'heat_control_operator',
+			erequiresLevel: 1,
+			// TODO: Figure out a good price for this
+			cost: 10000000,
+			levels: 1,
+			onclick: function(upgrade) {
+				game.heat_outlet_controlled = upgrade.level;
+			}
+		},
+		{
+			id: 'perpetual_capacitors',
+			type: 'other2',
+			title: 'Perpetual Capacitors',
+			description: 'If capacitors are on a cool surface when they go over their maximum heat containment, the heat is vented directly into the reactor and the capacitor is replaced. The capacitor costs 10 times the normal cost.',
+			cost: 1000000000000000000,
+			multiplier: 5,
+			levels: 1,
+			onclick: function(upgrade) {
+				/* TODO: ponder this - it's part-wide so it's basically just a setting
+				var part;
+				for ( var i = 1; i <= 6; i++ ) {
+					part = game.part_objects['capacitor' + i];
+					part.perpetual = upgrade.level > 0 ? true : false;
+					part.updateDescription();
+				}*/
+			}
+		},
+		{
+			id: 'improved_alloys_2',
+			type: 'other2',
+			title: 'Improved Alloys 2',
+			description: 'Plating holds 100% more heat per level of upgrade (additive with self).',
+			erequires: 'improved_alloys',
+			erequiresLevel: 32,
+			cost: Math.pow(5, 32)*5000,
+			multiplier: 5,
+			onclick: function(upgrade) {
+				var part;
+				for ( var i = 1; i <= 6; i++ ) {
+					part = game.part_objects['reactor_plating' + i];
+					part.reactor_heat = part.part.base_reactor_heat * ( upgrade.level + 1 ) * ( game.upgrade_objects['improved_alloys'].level + 1 ) * Math.pow(2, game.upgrade_objects['quantum_buffering'].level);
+					part.updateDescription();
+				}
+			}
+		},
+		{
+			id: 'improved_power_lines_2',
+			type: 'other2',
+			title: 'Improved Power Lines 2',
+			description: 'Sells 1% of your power each tick per level of upgrade (additive).',
+			erequires: 'improved_power_lines',
+			erequiresLevel: 32,
+			cost: Math.pow(10, 32)*100,
+			multiplier: 10,
+			onclick: function(upgrade) {
+				game.auto_sell_multiplier = .01 * (upgrade.level + game.upgrade_objects['improved_power_lines'].level);
+			}
+		},
+		{
+			id: 'improved_wiring_2',
+			type: 'other2',
+			title: 'Improved Wiring 2',
+			description: 'Capacitors hold +100% power and heat per level of upgrade (additive with self).',
+			erequires: 'improved_wiring',
+			erequiresLevel: 32,
+			cost: Math.pow(5, 32)*5000,
+			multiplier: 5,
+			onclick: function(upgrade) {
+				var part;
+				for ( var i = 1; i <= 6; i++ ) {
+					part = game.part_objects['capacitor' + i];
+					part.reactor_power = part.part.base_reactor_power * ( game.upgrade_objects['improved_wiring'].level + 1 ) * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['quantum_buffering'].level);
+					part.containment = part.part.base_containment * ( game.upgrade_objects['improved_wiring'].level + 1 ) * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['quantum_buffering'].level);
+					part.updateDescription();
+				}
+			}
+		},
+		{
+			id: 'improved_coolant_cells_2',
+			type: 'other2',
+			title: 'Improved Coolant Cells 2',
+			description: 'Coolant cells hold 100% more heat per level of upgrade (additive with self).',
+			erequires: 'improved_coolant_cells',
+			erequiresLevel: 32,
+			cost: Math.pow(100, 32)*5000,
+			multiplier: 100,
+			onclick: function(upgrade) {
+				for ( var i = 1; i <= 6; i++ ) {
+					part = game.part_objects['coolant_cell' + i];
+					part.containment = part.part.base_containment * ( game.upgrade_objects['improved_coolant_cells'].level + 1 ) * ( upgrade.level + 1 ) * Math.pow(2, game.upgrade_objects['ultracryonics'].level);
+					part.updateDescription();
+				}
+			}
+		},
+		{
+			id: 'improved_reflector_density_2',
+			type: 'other2',
+			title: 'Improved Reflector Density 2',
+			description: 'Reflectors last 100% longer per level of upgrade (additive with self).',
+			erequires: 'improved_reflector_density',
+			erequiresLevel: 32,
+			cost: Math.pow(100, 32)*5000,
+			multiplier: 100,
+			onclick: function(upgrade) {
+				var part;
+				for ( var i = 1; i <= 6; i++ ) {
+					part = game.part_objects['reflector' + i];
+					part.ticks = part.part.base_ticks * ( game.upgrade_objects['improved_reflector_density'].level + 1 ) * ( upgrade.level + 1 );
+					part.updateDescription();
+				}
+			}
+		},
+		{
+			id: 'improved_neutron_reflection_2',
+			type: 'other2',
+			title: 'Improved Neutron Reflection 2',
+			description: 'Reflectors generate an additional 1% of their base power per level of upgrade (additive with self).',
+			erequires: 'improved_neutron_reflection',
+			erequiresLevel: 32,
+			cost: Math.pow(100, 32)*5000,
+			multiplier: 100,
+			onclick: function(upgrade) {
+				var part;
+				for ( var i = 1; i <= 6; i++ ) {
+					part = game.part_objects['reflector' + i];
+					part.power_increase = part.part.base_power_increase * (1 + (game.upgrade_objects['improved_neutron_reflection'].level / 100)) * (1 + (upgrade.level / 100)) + (part.part.base_power_increase * (game.upgrade_objects['full_spectrum_reflectors'].level));
+					part.updateDescription();
+				}
 			}
 		},
 
@@ -390,12 +493,13 @@ window.upgrades = function(game) {
 				var part;
 				for ( var i = 1; i <= 6; i++ ) {
 					part = game.part_objects['capacitor' + i];
-					part.reactor_power = part.part.base_reactor_power * (game.upgrade_objects['improved_wiring'].level + 1) * Math.pow(2, upgrade.level);
-					part.containment = part.part.base_containment * (game.upgrade_objects['improved_wiring'].level + 1) * Math.pow(2, upgrade.level);
+					
+					part.reactor_power = part.part.base_reactor_power * ( game.upgrade_objects['improved_wiring_2'].level + 1 ) * (game.upgrade_objects['improved_wiring'].level + 1) * Math.pow(2, upgrade.level);
+					part.containment = part.part.base_containment * ( game.upgrade_objects['improved_wiring_2'].level + 1 ) * (game.upgrade_objects['improved_wiring'].level + 1) * Math.pow(2, upgrade.level);
 					part.updateDescription();
 
 					part = game.part_objects['reactor_plating' + i];
-					part.reactor_heat = part.part.base_reactor_heat * (game.upgrade_objects['improved_alloys'].level + 1) * Math.pow(2, upgrade.level);
+					part.reactor_heat = part.part.base_reactor_heat * ( game.upgrade_objects['improved_alloys_2'].level + 1 ) * (game.upgrade_objects['improved_alloys'].level + 1) * Math.pow(2, upgrade.level);
 					part.updateDescription();
 				}
 			}
@@ -413,7 +517,7 @@ window.upgrades = function(game) {
 				var part;
 				for ( var i = 1; i <= 6; i++ ) {
 					part = game.part_objects['reflector' + i];
-					part.power_increase = part.part.base_power_increase * (1 + (game.upgrade_objects['improved_neutron_reflection'].level / 100)) + (part.part.base_power_increase * (upgrade.level));
+					part.power_increase = part.part.base_power_increase * (1 + (game.upgrade_objects['improved_neutron_reflection_2'].level / 100)) * (1 + (game.upgrade_objects['improved_neutron_reflection'].level / 100)) + (part.part.base_power_increase * (upgrade.level));
 					part.updateDescription();
 				}
 			}
@@ -484,7 +588,7 @@ window.upgrades = function(game) {
 			onclick: function(upgrade) {
 				for ( var i = 1; i <= 6; i++ ) {
 					part = game.part_objects['coolant_cell' + i];
-					part.containment = part.part.base_containment * ( game.upgrade_objects['improved_coolant_cells'].level + 1 ) * Math.pow(2, upgrade.level);
+					part.containment = part.part.base_containment * ( game.upgrade_objects['improved_coolant_cells_2'].level + 1 ) * ( game.upgrade_objects['improved_coolant_cells'].level + 1 ) * Math.pow(2, upgrade.level);
 					part.updateDescription();
 				}
 			}

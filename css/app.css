@@ -893,6 +893,8 @@ menu {
 	background-image: url("../img/reflector_1.gif");
 }
 
+#improved_neutron_reflection_2 .image,
+#improved_reflector_density_2 .image,
 #parts .part.part_reflector2 .image,
 #reactor .tile.part_reflector2 {
 	background-image: url("../img/reflector_2.gif");
@@ -935,7 +937,9 @@ menu {
 }
 
 #parts .part.part_capacitor2 .image,
-#reactor .tile.part_capacitor2 {
+#reactor .tile.part_capacitor2,
+#improved_power_lines_2 .image,
+#improved_wiring_2 .image {
 	background-image: url("../img/capacitor_2.gif");
 }
 
@@ -1104,6 +1108,7 @@ menu {
 	background-image: url("../img/coolant_1.gif");
 }
 
+#improved_coolant_cells_2 .image,
 #parts .part.part_coolant_cell2 .image,
 #reactor .tile.part_coolant_cell2 {
 	background-image: url("../img/coolant_2.gif");
@@ -1142,7 +1147,8 @@ menu {
 }
 
 #parts .part.part_reactor_plating2 .image,
-#reactor .tile.part_reactor_plating2 {
+#reactor .tile.part_reactor_plating2,
+#upgrades #improved_alloys_2 .image {
 	background-image: url("../img/plating_2.gif");
 }
 
