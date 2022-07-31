@@ -144,8 +144,6 @@ window.upgrades = function(game) {
 			type: 'otherB2',
 			title: 'Improved Alloys 2',
 			description: 'Plating holds 100% more heat per level of upgrade (additive with self).',
-			erequires: 'improved_alloys',
-			erequiresLevel: 32,
 			cost: Math.pow(5, 32)*5000,
 			multiplier: 5,
 			onclick: function(upgrade) {
@@ -176,8 +174,6 @@ window.upgrades = function(game) {
 			type: 'otherB2',
 			title: 'Improved Power Lines 2',
 			description: 'Sells 1% of your power each tick per level of upgrade (additive).',
-			erequires: 'improved_power_lines',
-			erequiresLevel: 32,
 			cost: Math.pow(10, 32)*100,
 			multiplier: 10,
 			onclick: function(upgrade) {
@@ -207,8 +203,6 @@ window.upgrades = function(game) {
 			type: 'otherB2',
 			title: 'Improved Wiring 2',
 			description: 'Capacitors hold +100% power and heat per level of upgrade (additive with self).',
-			erequires: 'improved_wiring',
-			erequiresLevel: 32,
 			cost: Math.pow(5, 32)*5000,
 			multiplier: 5,
 			onclick: function(upgrade) {
@@ -242,8 +236,6 @@ window.upgrades = function(game) {
 			type: 'otherB2',
 			title: 'Improved Coolant Cells 2',
 			description: 'Coolant cells hold 100% more heat per level of upgrade (additive with self).',
-			erequires: 'improved_coolant_cells',
-			erequiresLevel: 32,
 			cost: Math.pow(100, 32)*5000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -278,8 +270,6 @@ window.upgrades = function(game) {
 			type: 'otherB2',
 			title: 'Improved Reflector Density 2',
 			description: 'Reflectors last 100% longer per level of upgrade (additive with self).',
-			erequires: 'improved_reflector_density',
-			erequiresLevel: 32,
 			cost: Math.pow(100, 32)*5000,
 			multiplier: 100,
 			onclick: function(upgrade) {
@@ -314,8 +304,6 @@ window.upgrades = function(game) {
 			type: 'otherB2',
 			title: 'Improved Neutron Reflection 2',
 			description: 'Reflectors generate an additional 1% of their base power per level of upgrade (additive with self).',
-			erequires: 'improved_neutron_reflection',
-			erequiresLevel: 32,
 			cost: Math.pow(100, 32)*5000,
 			multiplier: 100,
 			onclick: function(upgrade) {
