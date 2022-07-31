@@ -938,6 +938,8 @@ menu {
 
 #parts .part.part_capacitor2 .image,
 #reactor .tile.part_capacitor2,
+#active_venting_2 .image,
+#active_exchangers_2 .image,
 #improved_power_lines_2 .image,
 #improved_wiring_2 .image {
 	background-image: url("../img/capacitor_2.gif");
@@ -977,7 +979,8 @@ menu {
 }
 
 #parts .part.part_vent2 .image,
-#reactor .tile.part_vent2 {
+#reactor .tile.part_vent2,
+#improved_heat_vents_2 .image {
 	background-image: url("../img/vent_2.gif");
 }
 
@@ -1011,7 +1014,8 @@ menu {
 }
 
 #parts .part.part_heat_exchanger2 .image,
-#reactor .tile.part_heat_exchanger2 {
+#reactor .tile.part_heat_exchanger2,
+#improved_heat_exchangers_2 .image {
 	background-image: url("../img/exchanger_2.gif");
 }
 
@@ -1148,6 +1152,8 @@ menu {
 
 #parts .part.part_reactor_plating2 .image,
 #reactor .tile.part_reactor_plating2,
+#improved_heatsinks_2 .image,
+#reinforced_heat_exchangers_2 .image,
 #upgrades #improved_alloys_2 .image {
 	background-image: url("../img/plating_2.gif");
 }
