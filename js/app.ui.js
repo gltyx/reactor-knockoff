@@ -169,6 +169,10 @@ var var_objs = {
 		dom: $('#power_per_tick'),
 		num: true
 	},
+	ep_chance_add: {
+		dom: $('#ep_per_tick'),
+		num: true
+	},
 	heat_add: {
 		dom: $('#heat_per_tick'),
 		num: true

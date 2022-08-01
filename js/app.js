@@ -2137,6 +2137,9 @@ var _game_loop = function() {
 		}
 	}
 
+	
+	ui.say('var', 'ep_chance_add', ep_chance_add);
+
 	// Inlets
 	for ( let tile of active_inlets ){
 		for ( let tile_containment of tile.containments ){
