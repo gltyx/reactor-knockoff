@@ -2097,7 +2097,7 @@ var _game_loop = function() {
 					// Which more, tile heat or max heat, get the lesser
 					let lower_heat = Math.min(tile.heat_contained, tile_part.ep_heat);
 					let ep_chance_percent = lower_heat / tile_part.part.base_ep_heat;
-					let ep_chance = Math.log(lower_heat) / Math.pow(10, 5 - tile_part.part.level) * ep_chance_percent;
+					let ep_chance = Math.log(lower_heat) / Math.pow(10, 5 - tile_part.part.level) * ep_chance_percent * Math.pow(10, game.upgrade_objects['enhanced_acceleration'].level);
 					let ep_gain = 0;
 					tile.display_chance = ep_chance * 100;
 					tile.display_chance_percent_of_total = lower_heat / tile_part.ep_heat * 100;

@@ -120,6 +120,17 @@ window.upgrades = function(game) {
 				}
 			}
 		},
+		{
+			id: 'enhanced_acceleration',
+			type: 'otherA',
+			title: 'Enhanced Acceleration',
+			description: 'Multiply EP production by 10 (multiplicative).',
+			cost: 1e27,
+			multiplier: 1e27,
+			onclick: function(upgrade) {
+				//for use in formula
+			}
+		},
 
 
 		// Plating upgrades

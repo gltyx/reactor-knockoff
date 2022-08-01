@@ -1184,6 +1184,7 @@ menu {
 #parts .part.part_particle_accelerator1 .image,
 #upgrades #improved_particle_accelerators .image,
 #experimental_upgrades #improved_particle_accelerators1 .image,
+#upgrades #enhanced_acceleration .image,
 #reactor .tile.part_particle_accelerator1 {
 	background-image: url("../img/accelerator_1.gif");
 }
