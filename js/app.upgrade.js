@@ -50,7 +50,7 @@ Upgrade.prototype.setLevel = function(level) {
 		if ( this.level >= this.max_level ) {
 			this.display_cost = '--';
 		} else {
-			this.display_cost = fmt(this.cost);
+			this.display_cost = this.cost;
 		}
 	}
 

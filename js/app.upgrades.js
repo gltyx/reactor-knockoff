@@ -5,6 +5,7 @@ window.upgrades = function(game) {
 		// One off upgrades
 		{
 			id: 'chronometer',
+			tier: 0,
 			type: 'otherA',
 			title: 'Improved Chronometers',
 			description: '+1 tick per second per level of upgrade.',
@@ -16,6 +17,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'forceful_fusion',
+			tier: 0,
 			type: 'otherA',
 			title: 'Forceful Fission',
 			description: 'Cells produce 1% more power at 1k heat, 2% power at 1m heat etc. per level of upgrade (additive with self).',
@@ -27,6 +29,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'heat_control_operator',
+			tier: 0,
 			type: 'otherA',
 			title: 'Heat Control Operator',
 			description: 'Your reactor no longer automatically removes heat from itself when it is below its maximum heat capacity. This makes Forceful Fusion easier to maintain.',
@@ -38,6 +41,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'heat_outlet_control_operator',
+			tier: 0,
 			type: 'otherA',
 			title: 'Better Heat Control Operator',
 			description: 'Your reactor outlets no longer output more heat than what the connected vents can handle.',
@@ -52,6 +56,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'improved_piping',
+			tier: 0,
 			type: 'otherA',
 			title: 'Improved Piping',
 			description: 'Venting manually is 10x as effective per level of upgrade (multiplicative).',
@@ -64,6 +69,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'expand_reactor_rows',
+			tier: 0,
 			type: 'otherA',
 			title: 'Expand Reactor Rows',
 			description: 'Add one row to the reactor for each level of the upgrade.',
@@ -76,6 +82,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'expand_reactor_cols',
+			tier: 0,
 			type: 'otherA',
 			title: 'Expand Reactor Cols',
 			description: 'Add one column to the reactor for each level of the upgrade.',
@@ -88,6 +95,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'perpetual_capacitors',
+			tier: 0,
 			type: 'otherA',
 			title: 'Perpetual Capacitors',
 			description: 'If capacitors are on a cool surface when they go over their maximum heat containment, the heat is vented directly into the reactor and the capacitor is replaced. The capacitor costs 10 times the normal cost.',
@@ -106,6 +114,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'perpetual_reflectors',
+			tier: 0,
 			type: 'otherA',
 			title: 'Perpetual Reflectors',
 			description: 'Reflectors are automtically replaced after being destroyed if they are on a cool surface. The replacement part will cost 1.5 times the normal cost.',
@@ -122,6 +131,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'enhanced_acceleration',
+			tier: 0,
 			type: 'otherA',
 			title: 'Enhanced Acceleration',
 			description: 'Multiply EP production by 10 (multiplicative).',
@@ -136,6 +146,7 @@ window.upgrades = function(game) {
 		// Plating upgrades
 		{
 			id: 'improved_alloys',
+			tier: 0,
 			type: 'otherB1',
 			title: 'Improved Alloys',
 			description: 'Plating holds 100% more heat per level of upgrade (additive with self).',
@@ -152,6 +163,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'improved_alloys_2',
+			tier: 1,
 			type: 'otherB2',
 			title: 'Improved Alloys 2',
 			description: 'Plating holds 100% more heat per level of upgrade (additive with self).',
@@ -171,6 +183,7 @@ window.upgrades = function(game) {
 		// Capacitor upgrades
 		{
 			id: 'improved_power_lines',
+			tier: 0,
 			type: 'otherB1',
 			title: 'Improved Power Lines',
 			description: 'Sells 1% of your power each tick per level of upgrade (additive).',
@@ -182,6 +195,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'improved_power_lines_2',
+			tier: 1,
 			type: 'otherB2',
 			title: 'Improved Power Lines 2',
 			description: 'Sells 1% of your power each tick per level of upgrade (additive).',
@@ -194,6 +208,7 @@ window.upgrades = function(game) {
 
 		{
 			id: 'improved_wiring',
+			tier: 0,
 			type: 'otherB1',
 			title: 'Improved Wiring',
 			description: 'Capacitors hold +100% power and heat per level of upgrade (additive with self).',
@@ -211,6 +226,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'improved_wiring_2',
+			tier: 1,
 			type: 'otherB2',
 			title: 'Improved Wiring 2',
 			description: 'Capacitors hold +100% power and heat per level of upgrade (additive with self).',
@@ -229,6 +245,7 @@ window.upgrades = function(game) {
 
 		{
 			id: 'improved_coolant_cells',
+			tier: 0,
 			type: 'otherB1',
 			title: 'Improved Coolant Cells',
 			description: 'Coolant cells hold 100% more heat per level of upgrade (additive with self).',
@@ -244,6 +261,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'improved_coolant_cells_2',
+			tier: 1,
 			type: 'otherB2',
 			title: 'Improved Coolant Cells 2',
 			description: 'Coolant cells hold 100% more heat per level of upgrade (additive with self).',
@@ -262,6 +280,7 @@ window.upgrades = function(game) {
 		// Reflector upgrades
 		{
 			id: 'improved_reflector_density',
+			tier: 0,
 			type: 'otherB1',
 			title: 'Improved Reflector Density',
 			description: 'Reflectors last 100% longer per level of upgrade (additive with self).',
@@ -278,6 +297,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'improved_reflector_density_2',
+			tier: 1,
 			type: 'otherB2',
 			title: 'Improved Reflector Density 2',
 			description: 'Reflectors last 100% longer per level of upgrade (additive with self).',
@@ -295,6 +315,7 @@ window.upgrades = function(game) {
 
 		{
 			id: 'improved_neutron_reflection',
+			tier: 0,
 			type: 'otherB1',
 			title: 'Improved Neutron Reflection',
 			description: 'Reflectors generate an additional 1% of their base power per level of upgrade (additive with self).',
@@ -312,6 +333,7 @@ window.upgrades = function(game) {
 		
 		{
 			id: 'improved_neutron_reflection_2',
+			tier: 1,
 			type: 'otherB2',
 			title: 'Improved Neutron Reflection 2',
 			description: 'Reflectors generate an additional 1% of their base power per level of upgrade (additive with self).',
@@ -331,6 +353,7 @@ window.upgrades = function(game) {
 		// Vent upgrades
 		{
 			id: 'improved_heat_vents',
+			tier: 0,
 			type: 'otherB1',//'vents',
 			title: 'Improved Heat Vents',
 			description: 'Vents hold and vent 100% more heat per level of upgrade (additive with self).',
@@ -348,6 +371,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'improved_heat_vents_2',
+			tier: 1,
 			type: 'otherB2',//'vents',
 			title: 'Improved Heat Vents 2',
 			description: 'Vents hold and vent 100% more heat per level of upgrade (additive with self).',
@@ -366,6 +390,7 @@ window.upgrades = function(game) {
 
 		{
 			id: 'improved_heatsinks',
+			tier: 0,
 			type: 'otherB1',//'vents',
 			title: 'Improved Heatsinks',
 			description: 'Each plating increases the amount of heat that vents can vent by 0.5% per level of upgrade per level of plating (additive with self).',
@@ -377,6 +402,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'improved_heatsinks_2',
+			tier: 1,
 			type: 'otherB2',//'vents',
 			title: 'Improved Heatsinks 2',
 			description: 'Increase the effect of plating on vents by 100% per level of upgrade (additive with self).',
@@ -389,6 +415,7 @@ window.upgrades = function(game) {
 
 		{
 			id: 'active_venting',
+			tier: 0,
 			type: 'otherB1',//'vents',
 			title: 'Active Venting',
 			description: 'Each capacitor increases the amount of heat that vents can vent by 0.5% per level of upgrade per level of capacitor (additive with self).',
@@ -400,6 +427,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'active_venting_2',
+			tier: 1,
 			type: 'otherB2',//'vents',
 			title: 'Active Venting 2',
 			description: 'Increase the effect of capacitors on vents by 100% per level of upgrade (additive with self).',
@@ -414,6 +442,7 @@ window.upgrades = function(game) {
 		// Exchanger/Inlet/Outlet upgrades
 		{
 			id: 'improved_heat_exchangers',
+			tier: 0,
 			type: 'otherB1',//'exchangers',
 			title: 'Improved Heat Exchangers',
 			description: 'Heat Exchangers, Inlets and Outlets hold and exchange 100% more heat per level of upgrade (additive with self).',
@@ -440,6 +469,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'improved_heat_exchangers_2',
+			tier: 1,
 			type: 'otherB2',//'exchangers',
 			title: 'Improved Heat Exchangers 2',
 			description: 'Heat Exchangers, Inlets and Outlets hold and exchange 100% more heat per level of upgrade (additive with self).',
@@ -467,6 +497,7 @@ window.upgrades = function(game) {
 
 		{
 			id: 'reinforced_heat_exchangers',
+			tier: 0,
 			type: 'otherB1',//'exchangers',
 			title: 'Reinforced Heat Exchangers',
 			description: 'Each plating increases the amount of heat that exchangers can exchange by 0.5% per level of upgrade per level of plating (additive with self).',
@@ -478,6 +509,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'reinforced_heat_exchangers_2',
+			tier: 1,
 			type: 'otherB2',//'exchangers',
 			title: 'Reinforced Heat Exchangers 2',
 			description: 'Increase the effect of plating on exchangers by 100% per level of upgrade (additive with self).',
@@ -490,6 +522,7 @@ window.upgrades = function(game) {
 		
 		{
 			id: 'active_exchangers',
+			tier: 0,
 			type: 'otherB1',//'exchangers',
 			title: 'Active Exchangers',
 			description: 'Each capacitor increases the amount of heat that exchangers can exchange by 0.5% per level of upgrade per level of capacitor (additive with self).',
@@ -501,6 +534,7 @@ window.upgrades = function(game) {
 		},
 		{
 			id: 'active_exchangers_2',
+			tier: 1,
 			type: 'otherB2',//'exchangers',
 			title: 'Active Exchangers 2',
 			description: 'Increase the effect of capacitors on exchangers by 100% per level of upgrade (additive with self).',
@@ -707,6 +741,18 @@ window.upgrades = function(game) {
 			onclick: function(upgrade) {
 				game.altered_max_power = game.base_max_power * Math.pow(4, upgrade.level);
 				game.altered_max_heat = game.base_max_heat * Math.pow(4, upgrade.level);
+			}
+		},
+		{
+			id: 'bang_for_your_buck',
+			type: 'experimental_boost',
+			title: 'Bang For Your Buck',
+			description: 'Reduce the cost growth of standard upgrades by 10% per level (multiplicative).',
+			erequires: 'laboratory',
+			erequiresLevel: 1,
+			ecost: 625,
+			multiplier: 25,
+			onclick: function(upgrade) {
 			}
 		},
 		/* Killing these since they are OP

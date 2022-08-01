@@ -1226,6 +1226,10 @@ menu {
 	background-image: url("../img/lab.gif");
 }
 
+#experimental_upgrades #bang_for_your_buck .image {
+	background-image: url("../img/money_fire.gif");
+}
+
   /* //////////////////////////
  // Upgrades
 ////////////////////////// */

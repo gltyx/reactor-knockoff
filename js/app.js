@@ -178,6 +178,7 @@ var max_power;
 var power_multiplier;
 var heat_multiplier;
 var protium_particles;
+var bfyb = 0.90;
 
 var total_exotic_particles = 0;
 
@@ -979,7 +980,8 @@ Upgrade.prototype.updateTooltip = function(tile) {
 	if ( this.ecost ) {
 		$tooltip_cost.textContent = this.display_cost + ' EP';
 	} else {
-		$tooltip_cost.textContent = this.display_cost;
+		console.log(this.upgrade.tier)
+		$tooltip_cost.textContent = fmt(this.display_cost * Math.pow(Math.pow(bfyb, game.upgrade_objects['bang_for_your_buck'].level), this.level + (32 * (this.upgrade.tier || 0))) /*ZC*/);
 	}
 };
 
@@ -1429,10 +1431,10 @@ var upgrade_func = function(upgrade) {
 		ui.say('var', 'current_exotic_particles', game.current_exotic_particles);
 	} else if ( 
 		upgrade.cost 
-		&& game.current_money >= upgrade.cost 
+		&& game.current_money >= upgrade.cost * Math.pow(Math.pow(bfyb, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/
 		&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
 	) {
-		game.current_money -= upgrade.cost;
+		game.current_money -= upgrade.cost * Math.pow(Math.pow(bfyb, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/;
 		ui.say('var', 'current_money', game.current_money);
 	} else {
 		return;
@@ -1474,14 +1476,13 @@ if ( game.debug ) {
 
 window.check_upgrades_affordability = function( ) {
 	for ( var upgrade of game.upgrade_objects_array ) {
-
 		if (
 			upgrade.level < upgrade.upgrade.levels
 			&& (
 				(
 					upgrade.cost
 					&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
-					&& game.current_money >= upgrade.cost
+					&& game.current_money >= upgrade.cost * Math.pow(Math.pow(bfyb, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/
 				)
 				||
 				(
