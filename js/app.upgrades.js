@@ -394,7 +394,7 @@ window.upgrades = function(game) {
 			type: 'otherB1',//'vents',
 			title: 'Improved Heatsinks',
 			description: 'Each plating increases the amount of heat that vents can vent by 0.5% per level of upgrade per level of plating (additive with self).',
-			cost: Math.pow(100,32)*1000,
+			cost: 1000,
 			multiplier: 100,
 			onclick: function(upgrade) {
 				game.vent_plating_multiplier = upgrade.level*(1 + game.upgrade_objects['improved_heatsinks_2'].level);
@@ -419,7 +419,7 @@ window.upgrades = function(game) {
 			type: 'otherB1',//'vents',
 			title: 'Active Venting',
 			description: 'Each capacitor increases the amount of heat that vents can vent by 0.5% per level of upgrade per level of capacitor (additive with self).',
-			cost: Math.pow(100,32)*1000,
+			cost: 1000,
 			multiplier: 100,
 			onclick: function(upgrade) {
 				game.vent_capacitor_multiplier = upgrade.level*(1 + game.upgrade_objects['active_venting_2'].level);
