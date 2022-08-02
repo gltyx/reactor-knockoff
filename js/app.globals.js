@@ -48,7 +48,7 @@ window.$ = function(a1) {
 // Number formatting
 /////////////////////////////
 
-var cm_names = ("K M B T Qa Qi Sx Sp Oc No Dc").split(" ");
+var cm_names = ("K M B T Qa Qi Sx Sp Oc No Dc UDc DDc TDc QaDc QiDc SxDc SpDc OcDc NoDc Vi").split(" ");
 
 var pow;
 var fnum;

@@ -125,7 +125,7 @@ window.parts = [
 			cost_multiplier: 3,
 			base_ticks: 3.6e3,
 			base_power: 1.25e12,
-			base_heat: 1.12e12
+			base_heat: 1.125e12
 		},
 		{
 			id: 'chlorophymium',
@@ -137,11 +137,11 @@ window.parts = [
 			experimental: true,
 			erequires: 'chlorophymium_cells',
 			erequiresLevel: 1,
-			base_cost: 3e18,
+			base_cost: 3e15,
 			cost_multiplier: 3,
 			base_ticks: 3.6e3,
-			base_power: 1e15,
-			base_heat: 1e15,
+			base_power: 1.25e12,
+			base_heat: 1.125e12,
 		},
 		{
 			id: 'mitochondrium',
@@ -153,11 +153,11 @@ window.parts = [
 			experimental: true,
 			erequires: 'mitochondrium_cells',
 			erequiresLevel: 1,
-			base_cost: 3e21,
+			base_cost: 3e15,
 			cost_multiplier: 3,
 			base_ticks: 3.6e3,
-			base_power: 1e18,
-			base_heat: 1e18,
+			base_power: 1.25e12,
+			base_heat: 1.125e12,
 		},
 
 		// Energy

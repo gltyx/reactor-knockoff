@@ -839,13 +839,18 @@ window.upgrades = function(game) {
 			id: 'lunar_chlorophymium',
 			type: 'experimental_cells_boost',
 			title: 'Lunar Chlorophymium',
-			description: 'Chlorophymium power production is affected by the time of day 5% less (multiplicative).',
+			description: 'Chlorophymium power production is affected by the time of day 100% more (multiplicative).',
 			erequires: 'chlorophymium_cells',
 			erequiresLevel: 1,
 			ecost: 2500,
 			multiplier: 2,
 			onclick: function(upgrade) {
-				// Nothing, used in a formula
+				for ( var i = 1; i <= 3; i++ ) {
+					part = game.part_objects['chlorophymium' + i];
+					part.base_heat = part.part.base_heat * Math.pow(upgrade.level+1, 2) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
+					part.heat = part.part.heat * Math.pow(upgrade.level+1, 2) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
+					part.updateDescription();
+				}
 			}
 		},
 		{

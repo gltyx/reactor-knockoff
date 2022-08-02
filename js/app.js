@@ -1293,7 +1293,9 @@ game.update_cell_power = function(type) {
 	var part;
 	var current = new Date();
 	let time = current.getHours()+current.getMinutes()/60+current.getSeconds()/3600;
-	let chlorophymiumMultiplier = 1-Math.pow(0.95, game.upgrade_objects['lunar_chlorophymium'].level)*(Math.cos(time*Math.PI/12)*0.5+0.5);
+	//let chlorophymiumMultiplier = 1-Math.pow(0.95, game.upgrade_objects['lunar_chlorophymium'].level)*(Math.cos(time*Math.PI/12)*0.5+0.5);
+	let chlorophymiumPre = Math.pow(game.upgrade_objects['lunar_chlorophymium'].level+1, 2)
+	let chlorophymiumMultiplier = Math.pow(Math.cos((time-12)*(Math.PI/12)), 2*game.upgrade_objects['lunar_chlorophymium'].level)*(chlorophymiumPre-(1/chlorophymiumPre))+(1/chlorophymiumPre)
 	let mitochondriumPower = max_power/1000;
 
 	for ( var i = 0, l = game.part_objects_array.length; i < l; i++ ) {
