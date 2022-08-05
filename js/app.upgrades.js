@@ -755,6 +755,18 @@ window.upgrades = function(game) {
 			onclick: function(upgrade) {
 			}
 		},
+		{
+			id: 'increase_utility_prices',
+			type: 'experimental_boost',
+			title: 'Increase Utility Prices',
+			description: 'Increase profit from selling power by 10% per level (multiplicative).',
+			erequires: 'laboratory',
+			erequiresLevel: 1,
+			ecost: 125,
+			multiplier: 5,
+			onclick: function(upgrade) {
+			}
+		},
 		/* Killing these since they are OP
 		{
 			id: 'force_particle_research',

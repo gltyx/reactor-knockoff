@@ -178,7 +178,7 @@ var max_power;
 var power_multiplier;
 var heat_multiplier;
 var protium_particles;
-var bfyb = 0.90;
+var bangForYourBuck = 0.90;
 
 var total_exotic_particles = 0;
 
@@ -981,7 +981,7 @@ Upgrade.prototype.updateTooltip = function(tile) {
 		$tooltip_cost.textContent = this.display_cost + ' EP';
 	} else {
 		console.log(this.upgrade.tier)
-		$tooltip_cost.textContent = fmt(this.display_cost * Math.pow(Math.pow(bfyb, game.upgrade_objects['bang_for_your_buck'].level), this.level + (32 * (this.upgrade.tier || 0))) /*ZC*/);
+		$tooltip_cost.textContent = fmt(this.display_cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), this.level + (32 * (this.upgrade.tier || 0))) /*ZC*/);
 	}
 };
 
@@ -1295,7 +1295,8 @@ game.update_cell_power = function(type) {
 	let time = current.getHours()+current.getMinutes()/60+current.getSeconds()/3600;
 	//let chlorophymiumMultiplier = 1-Math.pow(0.95, game.upgrade_objects['lunar_chlorophymium'].level)*(Math.cos(time*Math.PI/12)*0.5+0.5);
 	let chlorophymiumPre = Math.pow(game.upgrade_objects['lunar_chlorophymium'].level+1, 2)
-	let chlorophymiumMultiplier = Math.pow(Math.cos((time-12)*(Math.PI/12)), 2*game.upgrade_objects['lunar_chlorophymium'].level)*(chlorophymiumPre-(1/chlorophymiumPre))+(1/chlorophymiumPre)
+	let chlorophymiumMultiplier = Math.pow(Math.cos((time-12)*(Math.PI/24)), 2*game.upgrade_objects['lunar_chlorophymium'].level)*(chlorophymiumPre-(1/chlorophymiumPre))+(1/chlorophymiumPre)
+	console.log(time, chlorophymiumMultiplier)
 	let mitochondriumPower = max_power/1000;
 
 	for ( var i = 0, l = game.part_objects_array.length; i < l; i++ ) {
@@ -1433,10 +1434,10 @@ var upgrade_func = function(upgrade) {
 		ui.say('var', 'current_exotic_particles', game.current_exotic_particles);
 	} else if ( 
 		upgrade.cost 
-		&& game.current_money >= upgrade.cost * Math.pow(Math.pow(bfyb, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/
+		&& game.current_money >= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/
 		&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
 	) {
-		game.current_money -= upgrade.cost * Math.pow(Math.pow(bfyb, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/;
+		game.current_money -= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/;
 		ui.say('var', 'current_money', game.current_money);
 	} else {
 		return;
@@ -1484,7 +1485,7 @@ window.check_upgrades_affordability = function( ) {
 				(
 					upgrade.cost
 					&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
-					&& game.current_money >= upgrade.cost * Math.pow(Math.pow(bfyb, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/
+					&& game.current_money >= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/
 				)
 				||
 				(
@@ -1841,7 +1842,7 @@ $reactor.delegate('tile', 'mousemove', function(e) {
 // Sell (Decoupled)
 window.sell = function() {
 	if ( current_power ) {
-		game.current_money += current_power;
+		game.current_money += current_power * Math.pow(1.1, game.upgrade_objects['increase_utility_prices'].level);
 		current_power = 0;
 
 		ui.say('var', 'current_money', game.current_money);
@@ -1910,7 +1911,7 @@ var offline_ticks = function(ticks) {
 	game.current_heat -= game_stat_prediction.reduce_heat*ticks;
 	current_power += game_stat_prediction.power_add*ticks;
 	current_power -= game_stat_prediction.sell_amount*ticks;
-	game.current_money += game_stat_prediction.sell_amount*ticks;
+	game.current_money += game_stat_prediction.sell_amount*ticks * Math.pow(1.1, game.upgrade_objects['increase_utility_prices'].level);
 
 	let ep_chance = game_stat_prediction.ep_chance_add*ticks;
 	let ep_gain;
@@ -2423,8 +2424,8 @@ var _game_loop = function() {
 			}
 
 			current_power -= sell_amount;
-			game.current_money += sell_amount;
-			ui.say('var', 'money_add', sell_amount);
+			game.current_money += sell_amount * Math.pow(1.1, game.upgrade_objects['increase_utility_prices'].level);
+			ui.say('var', 'money_add', sell_amount * Math.pow(1.1, game.upgrade_objects['increase_utility_prices'].level));
 			ui.say('var', 'current_money', game.current_money);
 
 			// Extreme capacitors frying themselves

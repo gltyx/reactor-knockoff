@@ -1230,6 +1230,10 @@ menu {
 	background-image: url("../img/bang_for_your_buck.gif");
 }
 
+#experimental_upgrades #increase_utility_prices .image {
+	background-image: url("../img/no_money.gif");
+}
+
   /* //////////////////////////
  // Upgrades
 ////////////////////////// */
