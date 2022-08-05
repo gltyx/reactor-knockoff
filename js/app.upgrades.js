@@ -750,8 +750,8 @@ window.upgrades = function(game) {
 			description: 'Reduce the cost growth of standard upgrades by 10% per level (multiplicative).',
 			erequires: 'laboratory',
 			erequiresLevel: 1,
-			ecost: 625,
-			multiplier: 25,
+			ecost: 125,
+			multiplier: 5,
 			onclick: function(upgrade) {
 			}
 		},
