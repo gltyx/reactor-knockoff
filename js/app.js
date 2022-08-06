@@ -189,6 +189,7 @@ var power_multiplier;
 var heat_multiplier;
 var protium_particles;
 var bangForYourBuck = 0.90;
+var CoolantInnovation = 0.10;
 
 var total_exotic_particles = 0;
 
@@ -990,8 +991,11 @@ Upgrade.prototype.updateTooltip = function(tile) {
 	if ( this.ecost ) {
 		$tooltip_cost.textContent = this.display_cost + ' EP';
 	} else {
-		console.log(this.upgrade.tier)
-		$tooltip_cost.textContent = fmt(this.display_cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), this.level + (32 * (this.upgrade.tier || 0))) /*ZC*/);
+		var upgradeCost = this.display_cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), this.level + (32 * (this.upgrade.tier || 0))) /*ZC*/
+		if (this.upgrade.cooling === true) {
+			upgradeCost *= Math.pow(1 - (CoolantInnovation * game.upgrade_objects['coolant_innovation'].level), this.level + (32 * (this.upgrade.tier || 0)))
+		}
+		$tooltip_cost.textContent = fmt(upgradeCost);
 	}
 };
 
@@ -1306,7 +1310,6 @@ game.update_cell_power = function(type) {
 	//let chlorophymiumMultiplier = 1-Math.pow(0.95, game.upgrade_objects['lunar_chlorophymium'].level)*(Math.cos(time*Math.PI/12)*0.5+0.5);
 	let chlorophymiumPre = Math.pow(game.upgrade_objects['lunar_chlorophymium'].level+1, 2)
 	let chlorophymiumMultiplier = Math.pow(Math.cos((time-12)*(Math.PI/24)), 2*game.upgrade_objects['lunar_chlorophymium'].level)*(chlorophymiumPre-(1/chlorophymiumPre))+(1/chlorophymiumPre)
-	console.log(time, chlorophymiumMultiplier)
 	let mitochondriumPower = max_power/1000;
 
 	for ( var i = 0, l = game.part_objects_array.length; i < l; i++ ) {
@@ -1442,13 +1445,20 @@ var upgrade_func = function(upgrade) {
 	) {
 		game.current_exotic_particles -= upgrade.ecost;
 		ui.say('var', 'current_exotic_particles', game.current_exotic_particles);
-	} else if ( 
-		upgrade.cost 
-		&& game.current_money >= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/
-		&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
-	) {
-		game.current_money -= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/;
-		ui.say('var', 'current_money', game.current_money);
+	} else if (upgrade.cost) {
+		var upgradeCost = upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/;
+		if (upgrade.upgrade.cooling) {
+			upgradeCost *= Math.pow(1 - (CoolantInnovation * game.upgrade_objects['coolant_innovation'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0)))
+		}
+		if (
+			game.current_money >= upgradeCost
+			&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
+		) {
+			game.current_money -= upgradeCost
+			ui.say('var', 'current_money', game.current_money);
+		} else {
+			return
+		}
 	} else {
 		return;
 	}
@@ -1495,7 +1505,8 @@ window.check_upgrades_affordability = function( ) {
 				(
 					upgrade.cost
 					&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
-					&& game.current_money >= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/
+					&& (!upgrade.upgrade.cooling && (game.current_money >= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))))
+					|| (game.current_money >= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) * Math.pow(1 - (CoolantInnovation * game.upgrade_objects['coolant_innovation'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))))) /*ZC*/
 				)
 				||
 				(

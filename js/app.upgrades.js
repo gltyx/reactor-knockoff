@@ -246,6 +246,7 @@ window.upgrades = function(game) {
 		{
 			id: 'improved_coolant_cells',
 			tier: 0,
+			cooling: true,
 			type: 'otherB1',
 			title: 'Improved Coolant Cells',
 			description: 'Coolant cells hold 100% more heat per level of upgrade (additive with self).',
@@ -262,6 +263,7 @@ window.upgrades = function(game) {
 		{
 			id: 'improved_coolant_cells_2',
 			tier: 1,
+			cooling: true,
 			type: 'otherB2',
 			title: 'Improved Coolant Cells 2',
 			description: 'Coolant cells hold 100% more heat per level of upgrade (additive with self).',
@@ -354,6 +356,7 @@ window.upgrades = function(game) {
 		{
 			id: 'improved_heat_vents',
 			tier: 0,
+			cooling: true,
 			type: 'otherB1',//'vents',
 			title: 'Improved Heat Vents',
 			description: 'Vents hold and vent 100% more heat per level of upgrade (additive with self).',
@@ -372,6 +375,7 @@ window.upgrades = function(game) {
 		{
 			id: 'improved_heat_vents_2',
 			tier: 1,
+			cooling: true,
 			type: 'otherB2',//'vents',
 			title: 'Improved Heat Vents 2',
 			description: 'Vents hold and vent 100% more heat per level of upgrade (additive with self).',
@@ -391,6 +395,7 @@ window.upgrades = function(game) {
 		{
 			id: 'improved_heatsinks',
 			tier: 0,
+			cooling: true,
 			type: 'otherB1',//'vents',
 			title: 'Improved Heatsinks',
 			description: 'Each plating increases the amount of heat that vents can vent by 0.5% per level of upgrade per level of plating (additive with self).',
@@ -403,6 +408,7 @@ window.upgrades = function(game) {
 		{
 			id: 'improved_heatsinks_2',
 			tier: 1,
+			cooling: true,
 			type: 'otherB2',//'vents',
 			title: 'Improved Heatsinks 2',
 			description: 'Increase the effect of plating on vents by 100% per level of upgrade (additive with self).',
@@ -416,6 +422,7 @@ window.upgrades = function(game) {
 		{
 			id: 'active_venting',
 			tier: 0,
+			cooling: true,
 			type: 'otherB1',//'vents',
 			title: 'Active Venting',
 			description: 'Each capacitor increases the amount of heat that vents can vent by 0.5% per level of upgrade per level of capacitor (additive with self).',
@@ -428,6 +435,7 @@ window.upgrades = function(game) {
 		{
 			id: 'active_venting_2',
 			tier: 1,
+			cooling: true,
 			type: 'otherB2',//'vents',
 			title: 'Active Venting 2',
 			description: 'Increase the effect of capacitors on vents by 100% per level of upgrade (additive with self).',
@@ -443,6 +451,7 @@ window.upgrades = function(game) {
 		{
 			id: 'improved_heat_exchangers',
 			tier: 0,
+			cooling: true,
 			type: 'otherB1',//'exchangers',
 			title: 'Improved Heat Exchangers',
 			description: 'Heat Exchangers, Inlets and Outlets hold and exchange 100% more heat per level of upgrade (additive with self).',
@@ -470,6 +479,7 @@ window.upgrades = function(game) {
 		{
 			id: 'improved_heat_exchangers_2',
 			tier: 1,
+			cooling: true,
 			type: 'otherB2',//'exchangers',
 			title: 'Improved Heat Exchangers 2',
 			description: 'Heat Exchangers, Inlets and Outlets hold and exchange 100% more heat per level of upgrade (additive with self).',
@@ -498,6 +508,7 @@ window.upgrades = function(game) {
 		{
 			id: 'reinforced_heat_exchangers',
 			tier: 0,
+			cooling: true,
 			type: 'otherB1',//'exchangers',
 			title: 'Reinforced Heat Exchangers',
 			description: 'Each plating increases the amount of heat that exchangers can exchange by 0.5% per level of upgrade per level of plating (additive with self).',
@@ -510,6 +521,7 @@ window.upgrades = function(game) {
 		{
 			id: 'reinforced_heat_exchangers_2',
 			tier: 1,
+			cooling: true,
 			type: 'otherB2',//'exchangers',
 			title: 'Reinforced Heat Exchangers 2',
 			description: 'Increase the effect of plating on exchangers by 100% per level of upgrade (additive with self).',
@@ -523,6 +535,7 @@ window.upgrades = function(game) {
 		{
 			id: 'active_exchangers',
 			tier: 0,
+			cooling: true,
 			type: 'otherB1',//'exchangers',
 			title: 'Active Exchangers',
 			description: 'Each capacitor increases the amount of heat that exchangers can exchange by 0.5% per level of upgrade per level of capacitor (additive with self).',
@@ -535,6 +548,7 @@ window.upgrades = function(game) {
 		{
 			id: 'active_exchangers_2',
 			tier: 1,
+			cooling: true,
 			type: 'otherB2',//'exchangers',
 			title: 'Active Exchangers 2',
 			description: 'Increase the effect of capacitors on exchangers by 100% per level of upgrade (additive with self).',
@@ -578,6 +592,18 @@ window.upgrades = function(game) {
 			levels: 1,
 			onclick: function(upgrade) {
 				// Nothing, used to unlock other upgrades
+			}
+		},
+		{
+			id: 'coolant_innovation',
+			type: 'experimental_laboratory',
+			title: 'Coolant Innovation',
+			description: 'Reduces the cost scaling of standard cooling upgrades by 10% per level (additive with self).',
+			ecost: 1000,
+			multiplier: 10,
+			levels: 9,
+			onclick: function(upgrade) {
+				// Nothing, used in formulas
 			}
 		},
 		{
