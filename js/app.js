@@ -2,6 +2,16 @@
 
 TODO:
 
+ZenMod:
+Upgrade to reduce extreme capacitor heat generation
+Upgrade to increase extreme coolant conversion
+More Cells
+tier 7 components
+Autosell fine tuning
+Chronon Contractor - accelerator to speed up time
+? Component Discount Experimental Upgrade
+? Starting Cash Experimental Upgrade
+
 Bugs:
 stats display issue on mobile
 Replace All doesn't work as expected on depleted cells on mobile

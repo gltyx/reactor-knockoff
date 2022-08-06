@@ -70,7 +70,7 @@ window.fmt = function(num, places = null) {
 		places = places || 3;
 
 		// Out of range of the friendly numbers
-		if ( fmt_parts[5] > 35 ) {
+		if ( fmt_parts[5] > 21*3+2 ) {
 			fnum = fmt_parts[2] + (fmt_parts[3]?fmt_parts[3].substring(0, places + 1):'') + 'e' + fmt_parts[5];
 		// has a decimal
 		} else if ( fmt_parts[3] ) {
