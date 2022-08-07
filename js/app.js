@@ -2,148 +2,75 @@
 
 TODO:
 
-ZenMod:
-Flavor text for items and upgrades
-	Items
-		Cells
-			Uranium
-			Plutonium
-			Thorium
-			Seaborgium
-			Dolorium
-			Nefastium
-			Protium
-			Chlorophymium
-			Mitochondrium
-		Reflectors
-			Tier 1
-			Tier 2
-			Tier 3
-			Tier 4
-			Tier 5
-			Tier 6
-		Capacitors
-			Tier 1
-			Tier 2
-			Tier 3
-			Tier 4
-			Tier 5
-			Tier 6
-		Vents
-			Tier 1
-			Tier 2
-			Tier 3
-			Tier 4
-			Tier 5
-			Tier 6
-		Exchangers
-			Tier 1
-			Tier 2
-			Tier 3
-			Tier 4
-			Tier 5
-			Tier 6
-		Inlets
-			Tier 1
-			Tier 2
-			Tier 3
-			Tier 4
-			Tier 5
-			Tier 6
-		Outlets
-			Tier 1
-			Tier 2
-			Tier 3
-			Tier 4
-			Tier 5
-			Tier 6
-		Coolants
-			Tier 1
-			Tier 2
-			Tier 3
-			Tier 4
-			Tier 5
-			Tier 6
-		Platuings
-			Tier 1
-			Tier 2
-			Tier 3
-			Tier 4
-			Tier 5
-			Tier 6
-		Accelerators
-			Tier 1
-			Tier 2
-			Tier 3
-			Tier 4
-			Tier 5
-			Tier 6
-	Upgrades
-		Standard
+Cosmetic
+	Flavor text for items and upgrades
+		Items
 			Cells
-			One off
-				Chronometers
-				Forceful Fission
-				Heat Control Operator
-				Better Heat Control Operator
-				Improved Piping
-				Rows
-				Columns
-				Perpetual Capacitors
-				Perpetual Reflectors
-				Enhanced Acceleration
-			Tiered
-				Improved Alloys
-					Tier 1
-					Tier 2
-				Improved Power Lines
-					Tier 1
-					Tier 2
-				Improved Wiring
-					Tier 1
-					Tier 2
-				Improved Coolant Cells
-					Tier 1
-					Tier 2
-				Improved Reflector Density
-					Tier 1
-					Tier 2
-				Improved Neutron Reflection
-					Tier 1
-					Tier 2
-				Improved Heat Vents
-					Tier 1
-					Tier 2
-				Improved Heatsinks
-					Tier 1
-					Tier 2
-				Active Venting
-					Tier 1
-					Tier 2
-				Improved Heat Exchangers
-					Tier 1
-					Tier 2
-				Reinforced Heat Exchangers
-					Tier 1
-					Tier 2
-				Active Exchangers
-					Tier 1
-					Tier 2
-		Experimental
-			One off
-				Laboratory
-				Coolant Innovation
-			Boosts
-				Infused Cells
-				Unleashed Cells
-				Quantum Buffering
-				Full spectrum reflectors
-				Fluid Hyperdynamics
-				Fractal Piping
-				Ultracryonics
-				Phlemboninum Core
-				Bang For Your Buck
-				Increase Utility Prices
+				Uranium
+				Plutonium
+				Thorium
+				Seaborgium
+				Dolorium
+				Nefastium
+				Protium
+				Chlorophymium
+				Mitochondrium
+			Reflectors
+				Tier 1
+				Tier 2
+				Tier 3
+				Tier 4
+				Tier 5
+				Tier 6
+			Capacitors
+				Tier 1
+				Tier 2
+				Tier 3
+				Tier 4
+				Tier 5
+				Tier 6
+			Vents
+				Tier 1
+				Tier 2
+				Tier 3
+				Tier 4
+				Tier 5
+				Tier 6
+			Exchangers
+				Tier 1
+				Tier 2
+				Tier 3
+				Tier 4
+				Tier 5
+				Tier 6
+			Inlets
+				Tier 1
+				Tier 2
+				Tier 3
+				Tier 4
+				Tier 5
+				Tier 6
+			Outlets
+				Tier 1
+				Tier 2
+				Tier 3
+				Tier 4
+				Tier 5
+				Tier 6
+			Coolants
+				Tier 1
+				Tier 2
+				Tier 3
+				Tier 4
+				Tier 5
+				Tier 6
+			Platuings
+				Tier 1
+				Tier 2
+				Tier 3
+				Tier 4
+				Tier 5
+				Tier 6
 			Accelerators
 				Tier 1
 				Tier 2
@@ -151,20 +78,93 @@ Flavor text for items and upgrades
 				Tier 4
 				Tier 5
 				Tier 6
-			Cells
-				Protium
-				Chlorophymium
-				Mitochondrium
-			Components
-				Reflector
-				Capacitor
-				Vent
-				Exhanger
-				Inlet
-				Outlet
-				Coolant
-				Plating
-				Accelerator
+		Upgrades
+			Standard
+				Cells
+				One off
+					Chronometers
+					Forceful Fission
+					Heat Control Operator
+					Better Heat Control Operator
+					Improved Piping
+					Rows
+					Columns
+					Perpetual Capacitors
+					Perpetual Reflectors
+					Enhanced Acceleration
+				Tiered
+					Improved Alloys
+						Tier 1
+						Tier 2
+					Improved Power Lines
+						Tier 1
+						Tier 2
+					Improved Wiring
+						Tier 1
+						Tier 2
+					Improved Coolant Cells
+						Tier 1
+						Tier 2
+					Improved Reflector Density
+						Tier 1
+						Tier 2
+					Improved Neutron Reflection
+						Tier 1
+						Tier 2
+					Improved Heat Vents
+						Tier 1
+						Tier 2
+					Improved Heatsinks
+						Tier 1
+						Tier 2
+					Active Venting
+						Tier 1
+						Tier 2
+					Improved Heat Exchangers
+						Tier 1
+						Tier 2
+					Reinforced Heat Exchangers
+						Tier 1
+						Tier 2
+					Active Exchangers
+						Tier 1
+						Tier 2
+			Experimental
+				One off
+					Laboratory
+					Coolant Innovation
+				Boosts
+					Infused Cells
+					Unleashed Cells
+					Quantum Buffering
+					Full spectrum reflectors
+					Fluid Hyperdynamics
+					Fractal Piping
+					Ultracryonics
+					Phlemboninum Core
+					Bang For Your Buck
+					Increase Utility Prices
+				Accelerators
+					Tier 1
+					Tier 2
+					Tier 3
+					Tier 4
+					Tier 5
+					Tier 6
+				Cells
+					Protium
+					Chlorophymium
+					Mitochondrium
+				Components
+					Reflector
+					Capacitor
+					Vent
+					Exhanger
+					Inlet
+					Outlet
+					Coolant
+					Plating
+					Accelerator
 More Upgrades
 	Tier 3, 4, & 5 standard upgrades
 	Upgrades for each extreme component
@@ -1578,7 +1578,7 @@ var upgrade_func = function(upgrade) {
 		ui.say('var', 'current_exotic_particles', game.current_exotic_particles);
 	} else if (upgrade.cost) {
 		var upgradeCost = upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) /*ZC*/;
-		if (upgrade.upgrade.cooling) {
+		if (upgrade.upgrade.cooling === true) {
 			upgradeCost *= Math.pow(1 - (CoolantInnovation * game.upgrade_objects['coolant_innovation'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0)))
 		}
 		if (
@@ -1630,14 +1630,17 @@ if ( game.debug ) {
 
 window.check_upgrades_affordability = function( ) {
 	for ( var upgrade of game.upgrade_objects_array ) {
+		var upgradeCost  = upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0)))
+		if (upgrade.cost && upgrade.upgrade.cooling === true) {
+			upgradeCost *= Math.pow(1 - (CoolantInnovation * game.upgrade_objects['coolant_innovation'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0)))
+		}
 		if (
 			upgrade.level < upgrade.upgrade.levels
 			&& (
 				(
 					upgrade.cost
 					&& (!upgrade.erequires || (game.upgrade_objects[upgrade.erequires].level >= upgrade.erequiresLevel))
-					&& (!upgrade.upgrade.cooling && (game.current_money >= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))))
-					|| (game.current_money >= upgrade.cost * Math.pow(Math.pow(bangForYourBuck, game.upgrade_objects['bang_for_your_buck'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))) * Math.pow(1 - (CoolantInnovation * game.upgrade_objects['coolant_innovation'].level), upgrade.level + (32 * (upgrade.upgrade.tier || 0))))) /*ZC*/
+					&& game.current_money >= upgradeCost
 				)
 				||
 				(
