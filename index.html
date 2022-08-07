@@ -219,23 +219,62 @@
 					<section id="help_section" class="page">
 						<h2 class="heading">Help</h2>
 						<div id="help" class="subpanel explanitory cms">
-							<h4>Basic Overview</h4>
-							<p>Cells = power and heat</p>
-							<p>Power = money</p>
-							<p>Money = Bigger cells and more money</p>
-							<p>Lots of money = particle accelerators</p>
-							<p>Particle accelerators = exotic particles (EP)</p>
-							<p>EP = more upgrades and new toys for more power, heat and money!</p>
-							<div class="has_spoiler">
-								<h4>Exotic Particle setup</h4>
-								<p>
-									To generate Exotic Particles you will need to put heat into a Particle Accelerator and immediately take it out.
-									To do this you can use either Heat Exchangers or Heat Inlets.
-									See below for an example:
-								</p>
-								<button class="show_spoiler">Show Spoilers</button>
-								<p class="spoiler"><img src="img/help/pa_spoiler.png" alt="Particle Accelerator setups"></p>
+							<h4>Basic Overview</h4><p>Cells = power and heat
+							Power = money
+							Money = Bigger cells and more money
+							Lots of money = particle accelerators
+							Particle accelerators = exotic particles (EP)
+							EP = more upgrades and new toys for more power, heat and money!</p>
+							<h4>Components</h4><p><img src="img/cell_1_1.gif"><img src="img/cell_2_1.gif"><img src="img/cell_3_1.gif"><img src="img/cell_4_1.gif"><img src="img/cell_5_1.gif"><img src="img/cell_6_1.gif">
+							Power cells generate heat and power. Each cell in a given tile gives a pulse to each adjacent tile. Heat and power scale with the number of pulses recieved.
+							Pulses Recieved (U), Single cell base power (P), Single cell base heat (H), Cell count (C)
+							(M) 1 for single, 4 for double, 12 for quad
+							Power: P * (M + U)
+							Heat: H * (M + U)^2/C
+
+							<img src="img/reflector_1.gif"><img src="img/reflector_2.gif"><img src="img/reflector_3.gif"><img src="img/reflector_4.gif"><img src="img/reflector_5.gif">
+							Neutron Reflectors provide a power bonus to adjacent cells stacking additively with eachother.
+
+							<img src="img/capacitor_1.gif"><img src="img/capacitor_2.gif"><img src="img/capacitor_3.gif"><img src="img/capacitor_4.gif"><img src="img/capacitor_5.gif">
+							Capacitors increase the total energy capacity of the reactor.
+
+							<img src="img/plating_1.gif"><img src="img/plating_2.gif"><img src="img/plating_3.gif"><img src="img/plating_4.gif"><img src="img/plating_5.gif">
+							platings increase the total heat capacity of the reactor.
+
+							<img src="img/vent_1.gif"><img src="img/vent_2.gif"><img src="img/vent_3.gif"><img src="img/vent_4.gif"><img src="img/vent_5.gif">
+							Vents dissipate contained heat.
+							Base heat capacity (C), Base ventillation (V), Sum of all capacitor tiers (C<sub>t</sub>), Sum of all plating tiers (P<sub>t</sub>), Improved Heatsinks level (S), Active Venting level (A)
+							Ventillation:	V * (1 + A * C<sub>t</sub>/200) * (1 + S * P<sub>t</sub>/200)
+							Heat Capacity:	C * (1 + A * C<sub>t</sub>/200) * (1 + S * P<sub>t</sub>/200)
+
+							<img src="img/exchanger_1.gif"><img src="img/exchanger_2.gif"><img src="img/exchanger_3.gif"><img src="img/exchanger_4.gif"><img src="img/exchanger_5.gif">
+							Exchangers balance heat between themselves and adjacent components.
+							Base heat capacity (C), Base transfer (T), Sum of all capacitor tiers (C<sub>t</sub>), Sum of all plating tiers (P<sub>t</sub>), Reinforced Heat Exchnagers level (R), Active Exchnagers level (A)
+							Transfer Rate:	T * (1 + A * C<sub>t</sub>/200) * (1 + R * P<sub>t</sub>/200)
+							Heat Capacity:	C * (1 + A * C<sub>t</sub>/200) * (1 + R * P<sub>t</sub>/200)
+
+							<img src="img/inlet_1.gif"><img src="img/inlet_2.gif"><img src="img/inlet_3.gif"><img src="img/inlet_4.gif"><img src="img/inlet_5.gif">
+							Inlets move heat from adjacent components into the reactor.
+							Base transfer (T), Sum of all capacitor tiers (C<sub>t</sub>), Sum of all plating tiers (P<sub>t</sub>), Reinforced Heat Exchnagers level (R), Active Exchnagers level (A)
+							Transfer Rate:	T * (1 + A * C<sub>t</sub>/200) * (1 + R * P<sub>t</sub>/200)
+
+							<img src="img/outlet_1.gif"><img src="img/outlet_2.gif"><img src="img/outlet_3.gif"><img src="img/outlet_4.gif"><img src="img/outlet_5.gif">
+							Outlets move heat from the reactor into adjacent components.
+							Base transfer (T), Sum of all capacitor tiers (C<sub>t</sub>), Sum of all plating tiers (P<sub>t</sub>), Reinforced Heat Exchnagers level (R), Active Exchnagers level (A)
+							Transfer Rate:	T * (1 + A * C<sub>t</sub>/200) * (1 + R * P<sub>t</sub>/200)
+
+							<img src="img/coolant_1.gif"><img src="img/coolant_2.gif"><img src="img/coolant_3.gif"><img src="img/coolant_4.gif"><img src="img/coolant_5.gif">
+							Coolant cells hold heat.
+
+							<img src="img/accelerator_1.gif"><img src="img/accelerator_2.gif"><img src="img/accelerator_3.gif"><img src="img/accelerator_4.gif"><img src="img/accelerator_5.gif">
+							Particle Accelerators produce exotic particles based on the heat passing through them each tick.
+							Max Heat BEFORE upgrades (m), Max Heat (M), Heat throughput (H), Tier (T), Enhanced Acceleration Levle (E)
+							Particle production: (Ln(min(M, H)) / 10 ^ (5-T)) * (min(M, H) / m) * 10^E
+							<div class="has_spoiler"><button class="show_spoiler">Usage</button>
+							<img src="img/help/pa_spoiler_1.png" class="spoiler">
+							<img src="img/help/pa_spoiler_2.png" class="spoiler">
 							</div>
+							</p>
 						</div>
 					</section>
 
@@ -297,6 +336,10 @@
 									<li>Additions:</li>
 									<ul>
 										<li>Coolant Innovation.</li>
+									</ul>
+									<li>Changes</li>
+									<ul>
+										<li>Made help helpful.</li>
 									</ul>
 								<ul>
 							</section>

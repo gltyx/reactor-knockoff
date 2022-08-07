@@ -3,62 +3,193 @@
 TODO:
 
 ZenMod:
-Upgrade to reduce extreme capacitor heat generation
-Upgrade to increase extreme coolant conversion
-More Cells
-tier 7 components
-Autosell fine tuning
-Chronon Contractor - accelerator to speed up time
-? Component Discount Experimental Upgrade
-? Starting Cash Experimental Upgrade
-
-Bugs:
-stats display issue on mobile
-Replace All doesn't work as expected on depleted cells on mobile
-
-Ongoing:
-adjust ui
-mobile ui
-parts ui adjust
-browser testing
-
-when placed, change tooltip/focus to tile
-Add "purchase" to tooltip for upgrades?
-Add "sell all of type" button
-saving/loading indicator, cancel save/load button
-unshift vents - vent6 power issue?
-figure out reflector experiment upgrade
-finish help section
-Statistics
-idle countdown timer & upgrades
-Hotkeys for place part, delete/sell all, close tooltip, focus navs, pages, pause, etc
-multiple reactors
-make stats unlockable
-header buttons
-fix close/delete buttons on tooltip
-fix upgrade/experiment display
-"story" objectives
-new cells
-tooltip
-modal messages
-Bundling cells to 9+
-towns with different power needs and compensation
-Options page - exponential formatting
-test speed of loops
-try big int library
-ui.js - put purely ui control stuff in there
-Alert user when there is an update available
-
-Make an auto-updater that updates without reloading
-shift + right click on spent cells also gets rid of unspent cells
-document part/upgrade keys
-right click to sell upgrades?
-decouple tooltip code
-achievement system
-save layouts
-Scrounge
-
-console.log
+Flavor text for items and upgrades
+	Items
+		Cells
+			Uranium
+			Plutonium
+			Thorium
+			Seaborgium
+			Dolorium
+			Nefastium
+			Protium
+			Chlorophymium
+			Mitochondrium
+		Reflectors
+			Tier 1
+			Tier 2
+			Tier 3
+			Tier 4
+			Tier 5
+			Tier 6
+		Capacitors
+			Tier 1
+			Tier 2
+			Tier 3
+			Tier 4
+			Tier 5
+			Tier 6
+		Vents
+			Tier 1
+			Tier 2
+			Tier 3
+			Tier 4
+			Tier 5
+			Tier 6
+		Exchangers
+			Tier 1
+			Tier 2
+			Tier 3
+			Tier 4
+			Tier 5
+			Tier 6
+		Inlets
+			Tier 1
+			Tier 2
+			Tier 3
+			Tier 4
+			Tier 5
+			Tier 6
+		Outlets
+			Tier 1
+			Tier 2
+			Tier 3
+			Tier 4
+			Tier 5
+			Tier 6
+		Coolants
+			Tier 1
+			Tier 2
+			Tier 3
+			Tier 4
+			Tier 5
+			Tier 6
+		Platuings
+			Tier 1
+			Tier 2
+			Tier 3
+			Tier 4
+			Tier 5
+			Tier 6
+		Accelerators
+			Tier 1
+			Tier 2
+			Tier 3
+			Tier 4
+			Tier 5
+			Tier 6
+	Upgrades
+		Standard
+			Cells
+			One off
+				Chronometers
+				Forceful Fission
+				Heat Control Operator
+				Better Heat Control Operator
+				Improved Piping
+				Rows
+				Columns
+				Perpetual Capacitors
+				Perpetual Reflectors
+				Enhanced Acceleration
+			Tiered
+				Improved Alloys
+					Tier 1
+					Tier 2
+				Improved Power Lines
+					Tier 1
+					Tier 2
+				Improved Wiring
+					Tier 1
+					Tier 2
+				Improved Coolant Cells
+					Tier 1
+					Tier 2
+				Improved Reflector Density
+					Tier 1
+					Tier 2
+				Improved Neutron Reflection
+					Tier 1
+					Tier 2
+				Improved Heat Vents
+					Tier 1
+					Tier 2
+				Improved Heatsinks
+					Tier 1
+					Tier 2
+				Active Venting
+					Tier 1
+					Tier 2
+				Improved Heat Exchangers
+					Tier 1
+					Tier 2
+				Reinforced Heat Exchangers
+					Tier 1
+					Tier 2
+				Active Exchangers
+					Tier 1
+					Tier 2
+		Experimental
+			One off
+				Laboratory
+				Coolant Innovation
+			Boosts
+				Infused Cells
+				Unleashed Cells
+				Quantum Buffering
+				Full spectrum reflectors
+				Fluid Hyperdynamics
+				Fractal Piping
+				Ultracryonics
+				Phlemboninum Core
+				Bang For Your Buck
+				Increase Utility Prices
+			Accelerators
+				Tier 1
+				Tier 2
+				Tier 3
+				Tier 4
+				Tier 5
+				Tier 6
+			Cells
+				Protium
+				Chlorophymium
+				Mitochondrium
+			Components
+				Reflector
+				Capacitor
+				Vent
+				Exhanger
+				Inlet
+				Outlet
+				Coolant
+				Plating
+				Accelerator
+More Upgrades
+	Tier 3, 4, & 5 standard upgrades
+	Upgrades for each extreme component
+		Upgrade to reduce extreme capacitor heat generation
+		Upgrade to increase extreme coolant conversion
+	QOL
+		? Component Discount Experimental Upgrade
+		? Starting Cash Experimental Upgrade
+More components
+	More Cells
+		Bigger bundles
+	Tier 7 non-cell components
+	Chronon Contractor - accelerator to speed up time
+More Objectives
+Features
+	Core
+		? Multiple reactors
+	QOL
+		Save layouts
+		Right click to sell upgrades
+		Autosell fine tuning
+		More help section info
+		Statistics
+		Settings
+			Number formatting
 */
 
 
