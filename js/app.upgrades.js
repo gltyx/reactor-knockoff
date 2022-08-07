@@ -573,18 +573,6 @@ window.upgrades = function(game) {
 			}
 		},
 		{
-			id: 'coolant_innovation',
-			type: 'experimental_laboratory',
-			title: 'Coolant Innovation',
-			description: 'Reduces the cost scaling of standard cooling upgrades by 10% per level (additive with self).',
-			ecost: 1000,
-			multiplier: 10,
-			levels: 9,
-			onclick: function(upgrade) {
-				// Nothing, used in formulas
-			}
-		},
-		{
 			id: 'infused_cells',
 			type: 'experimental_boost',
 			title: 'Infused Cells',
@@ -769,6 +757,18 @@ window.upgrades = function(game) {
 			ecost: 125,
 			multiplier: 5,
 			onclick: function(upgrade) {
+			}
+		},
+		{
+			id: 'coolant_innovation',
+			type: 'experimental_boost',
+			title: 'Coolant Innovation',
+			description: 'Reduces the cost scaling of standard cooling upgrades by 10% per level (additive with self).',
+			ecost: 1000,
+			multiplier: 10,
+			levels: 9,
+			onclick: function(upgrade) {
+				// Nothing, used in formulas
 			}
 		},
 		/* Killing these since they are OP

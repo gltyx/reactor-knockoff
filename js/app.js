@@ -2137,7 +2137,7 @@ var game_loop = function() {
 	}*/
 
 	let amount_of_ticks = dtime/tick;
-
+	
 	_game_loop();
 	amount_of_ticks -= 1;
 	dtime -= tick;
@@ -2176,6 +2176,7 @@ var _game_loop = function() {
 	let no_change_ticks = Infinity;
 	game.update_cell_power('chlorophymium');
 	game.update_cell_power('mitochondrium');
+	game.update_cell_power('protium');
 	update_tiles();
 
 	active_inlets.length = 0;
@@ -2223,8 +2224,6 @@ var _game_loop = function() {
 					if ( tile.ticks === 0 ) {
 						if ( tile_part.part.type === 'protium' ) {
 							protium_particles += tile_part.cell_count;
-							game.update_cell_power('protium');
-							update_tiles();
 						}
 
 						if ( game.auto_buy_disabled !== true && tile_part.perpetual && game.current_money >= tile_part.cost * 1.5 ) {
@@ -2626,7 +2625,7 @@ var _game_loop = function() {
 	}
 
 	if ( !was_melting_down && melting_down ) {
-		save();
+		//save();
 		ui.say('var', 'melting_down', true);
 	} else if ( was_melting_down && !melting_down ) {
 		ui.say('var', 'melting_down', false);

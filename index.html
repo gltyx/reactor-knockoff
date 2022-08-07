@@ -233,7 +233,7 @@
 							Heat: H * (M + U)^2/C
 
 							<img src="img/reflector_1.gif"><img src="img/reflector_2.gif"><img src="img/reflector_3.gif"><img src="img/reflector_4.gif"><img src="img/reflector_5.gif">
-							Neutron Reflectors provide a power bonus to adjacent cells stacking additively with eachother.
+							Neutron Reflectors provide a power bonus to adjacent cells stacking additively with each other.
 
 							<img src="img/capacitor_1.gif"><img src="img/capacitor_2.gif"><img src="img/capacitor_3.gif"><img src="img/capacitor_4.gif"><img src="img/capacitor_5.gif">
 							Capacitors increase the total energy capacity of the reactor.
@@ -244,24 +244,24 @@
 							<img src="img/vent_1.gif"><img src="img/vent_2.gif"><img src="img/vent_3.gif"><img src="img/vent_4.gif"><img src="img/vent_5.gif">
 							Vents dissipate contained heat.
 							Base heat capacity (C), Base ventillation (V), Sum of all capacitor tiers (C<sub>t</sub>), Sum of all plating tiers (P<sub>t</sub>), Improved Heatsinks level (S), Active Venting level (A)
-							Ventillation:	V * (1 + A * C<sub>t</sub>/200) * (1 + S * P<sub>t</sub>/200)
-							Heat Capacity:	C * (1 + A * C<sub>t</sub>/200) * (1 + S * P<sub>t</sub>/200)
+							Ventillation:	V * (1 + A * C<sub>t</sub> / 200) * (1 + S * P<sub>t</sub> / 200)
+							Heat Capacity:	C * (1 + A * C<sub>t</sub> / 200) * (1 + S * P<sub>t</sub> / 200)
 
 							<img src="img/exchanger_1.gif"><img src="img/exchanger_2.gif"><img src="img/exchanger_3.gif"><img src="img/exchanger_4.gif"><img src="img/exchanger_5.gif">
 							Exchangers balance heat between themselves and adjacent components.
 							Base heat capacity (C), Base transfer (T), Sum of all capacitor tiers (C<sub>t</sub>), Sum of all plating tiers (P<sub>t</sub>), Reinforced Heat Exchnagers level (R), Active Exchnagers level (A)
-							Transfer Rate:	T * (1 + A * C<sub>t</sub>/200) * (1 + R * P<sub>t</sub>/200)
-							Heat Capacity:	C * (1 + A * C<sub>t</sub>/200) * (1 + R * P<sub>t</sub>/200)
+							Transfer Rate:	T * (1 + A * C<sub>t</sub> / 200) * (1 + R * P<sub>t</sub> / 200)
+							Heat Capacity:	C * (1 + A * C<sub>t</sub> / 200) * (1 + R * P<sub>t</sub> / 200)
 
 							<img src="img/inlet_1.gif"><img src="img/inlet_2.gif"><img src="img/inlet_3.gif"><img src="img/inlet_4.gif"><img src="img/inlet_5.gif">
 							Inlets move heat from adjacent components into the reactor.
 							Base transfer (T), Sum of all capacitor tiers (C<sub>t</sub>), Sum of all plating tiers (P<sub>t</sub>), Reinforced Heat Exchnagers level (R), Active Exchnagers level (A)
-							Transfer Rate:	T * (1 + A * C<sub>t</sub>/200) * (1 + R * P<sub>t</sub>/200)
+							Transfer Rate:	T * (1 + A * C<sub>t</sub> / 200) * (1 + R * P<sub>t</sub> / 200)
 
 							<img src="img/outlet_1.gif"><img src="img/outlet_2.gif"><img src="img/outlet_3.gif"><img src="img/outlet_4.gif"><img src="img/outlet_5.gif">
 							Outlets move heat from the reactor into adjacent components.
 							Base transfer (T), Sum of all capacitor tiers (C<sub>t</sub>), Sum of all plating tiers (P<sub>t</sub>), Reinforced Heat Exchnagers level (R), Active Exchnagers level (A)
-							Transfer Rate:	T * (1 + A * C<sub>t</sub>/200) * (1 + R * P<sub>t</sub>/200)
+							Transfer Rate:	T * (1 + A * C<sub>t</sub> / 200) * (1 + R * P<sub>t</sub> / 200)
 
 							<img src="img/coolant_1.gif"><img src="img/coolant_2.gif"><img src="img/coolant_3.gif"><img src="img/coolant_4.gif"><img src="img/coolant_5.gif">
 							Coolant cells hold heat.
@@ -330,6 +330,18 @@
 						<h2 class="heading">Patch Notes</h2>
 						<div id="about" class="subpanel explanitory cms">
 							<button id="show_reactor" class="nav" data-section="reactor_upgrades" data-page="reactor_section">Back to Reactor</button>
+							<section class="patch">
+								<h3>ZenMod v0.1.9 - August 7th 2022</h3>
+								<ul>
+									<li>Changes</li>
+									<ul>
+										<li>Heavily optimized the protium code that I ruined.</li>
+										<li>Reactor meltdowns no longer instantly save the game.</li>
+										<li>The game is immediately paused on loading or importing.</li>
+										<li>Moved the Coolant Innovation upgrade.</li>
+									</ul>
+								<ul>
+							</section>
 							<section class="patch">
 								<h3>ZenMod v0.1.8 - August 6th 2022</h3>
 								<ul>
@@ -604,5 +616,8 @@
 	<script src="js/app.save.js"></script>
 	<script src="js/app.hotkeys.js"></script>
 	<script src="js/app.js"></script>
+	<script>
+		window.pause()
+	</script>
 </body>
 </html>

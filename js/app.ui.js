@@ -690,6 +690,7 @@ $('#import_save').onclick = function() {
 $('#import_button').onclick = function() {
 	ui.game.loads($("#txtImportExport").value);
 	$("#txtImportExport").value = "";
+	window.pause()
 };
 
 $('#reset_game').onclick = function() {
