@@ -2,6 +2,7 @@
 
 TODO:
 
+Bugs
 Cosmetic
 	Flavor text for items and upgrades
 		Upgrades
@@ -137,7 +138,7 @@ var Game = class {
 		this.ui;
 
 		// settings
-		this.version = 'Z0.2.0';
+		this.version = 'Z0.2.0-F1';
 		this.base_cols = 14;
 		this.base_rows = 11;
 		this.max_cols = 35;

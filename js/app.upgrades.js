@@ -602,6 +602,19 @@ window.upgrades = function(game) {
 					if ( part.category === 'cell' ) {
 						part.base_heat = part.part.base_heat * Math.pow(2, upgrade.level);
 						part.heat = part.part.heat * Math.pow(2, upgrade.level);
+						switch (part.part.type) {
+							case 'protium':
+								part.base_heat *= Math.pow(2, game.upgrade_objects['unstable_protium'].level);
+								part.heat *= Math.pow(2, game.upgrade_objects['unstable_protium'].level);
+								break;
+							case 'chlorophymium':
+								part.base_heat *= Math.pow(game.upgrade_objects['lunar_chlorophymium'].level+1, 2);
+								part.heat *= Math.pow(game.upgrade_objects['lunar_chlorophymium'].level+1, 2);
+								break;
+							case 'mitochondrium':
+								part.base_heat *= Math.pow(10, game.upgrade_objects['energized_mitochondrium'].level);
+								part.heat *= Math.pow(10, game.upgrade_objects['energized_mitochondrium'].level);
+						}
 					}
 				}
 
