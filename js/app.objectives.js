@@ -31,7 +31,7 @@ window.objectives = function(game) {
 			title: 'Reduce your Current Heat to 0',
 			reward: 10,
 			check: function() {
-				return game.sold_heat;
+				return game.current_heat <= 0;
 			}
 		},
 		{

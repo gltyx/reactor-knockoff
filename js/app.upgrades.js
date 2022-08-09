@@ -178,7 +178,7 @@ window.upgrades = function(game) {
 			cost: 100,
 			multiplier: 10,
 			onclick: function(upgrade) {
-				game.auto_sell_multiplier = .01 * (upgrade.level + game.upgrade_objects['improved_power_lines'].level);
+				game.auto_sell_multiplier = .01 * (upgrade.level + game.upgrade_objects['improved_power_lines_2'].level);
 			}
 		},
 		{
@@ -771,7 +771,7 @@ window.upgrades = function(game) {
 				// Nothing, used in formulas
 			}
 		},
-		/* Killing these since they are OP
+		/* Killing these since they are OP --- TheZen9: I might make this work... >:)
 		{
 			id: 'force_particle_research',
 			type: 'experimental_boost',

@@ -4,80 +4,6 @@ TODO:
 
 Cosmetic
 	Flavor text for items and upgrades
-		Items
-			Cells
-				Uranium
-				Plutonium
-				Thorium
-				Seaborgium
-				Dolorium
-				Nefastium
-				Protium
-				Chlorophymium
-				Mitochondrium
-			Reflectors
-				Tier 1
-				Tier 2
-				Tier 3
-				Tier 4
-				Tier 5
-				Tier 6
-			Capacitors
-				Tier 1
-				Tier 2
-				Tier 3
-				Tier 4
-				Tier 5
-				Tier 6
-			Vents
-				Tier 1
-				Tier 2
-				Tier 3
-				Tier 4
-				Tier 5
-				Tier 6
-			Exchangers
-				Tier 1
-				Tier 2
-				Tier 3
-				Tier 4
-				Tier 5
-				Tier 6
-			Inlets
-				Tier 1
-				Tier 2
-				Tier 3
-				Tier 4
-				Tier 5
-				Tier 6
-			Outlets
-				Tier 1
-				Tier 2
-				Tier 3
-				Tier 4
-				Tier 5
-				Tier 6
-			Coolants
-				Tier 1
-				Tier 2
-				Tier 3
-				Tier 4
-				Tier 5
-				Tier 6
-			Platuings
-				Tier 1
-				Tier 2
-				Tier 3
-				Tier 4
-				Tier 5
-				Tier 6
-			Accelerators
-				Tier 1
-				Tier 2
-				Tier 3
-				Tier 4
-				Tier 5
-				Tier 6
 		Upgrades
 			Standard
 				Cells
@@ -187,6 +113,9 @@ Features
 		Right click to sell upgrades
 		Autosell fine tuning
 		More help section info
+			Heat
+			Upgrades
+			Placement modifiers
 		Statistics
 		Settings
 			Number formatting
@@ -208,7 +137,7 @@ var Game = class {
 		this.ui;
 
 		// settings
-		this.version = '1.3.2';
+		this.version = 'Z0.2.0';
 		this.base_cols = 14;
 		this.base_rows = 11;
 		this.max_cols = 35;
@@ -1021,6 +950,7 @@ var $all_upgrades = $('#all_upgrades');
 var $tooltip = $('#tooltip');
 var $tooltip_name = $('#tooltip_name');
 var $tooltip_description = $('#tooltip_description');
+var $tooltip_flavor = $('#tooltip_flavor');
 var $tooltip_cost = $('#tooltip_cost');
 var $tooltip_sells_wrapper = $('#tooltip_sells_wrapper');
 var $tooltip_sells = $('#tooltip_sells');
@@ -1118,6 +1048,7 @@ window.Upgrade.prototype.showTooltip = function() {
 
 Upgrade.prototype.updateTooltip = function(tile) {
 	$tooltip_description.textContent = this.upgrade.description;
+	$tooltip_flavor.textContent = this.upgrade.flavor || '';
 
 	if ( this.ecost ) {
 		$tooltip_cost.textContent = this.display_cost + ' EP';
@@ -1291,6 +1222,7 @@ var Part = class {
 		if ( tile ) {
 			if ( $tooltip_description.textContent !== tile.part.description ) {
 				$tooltip_description.textContent = tile.part.description;
+				$tooltip_flavor.textContent = tile.part.flavor || '';
 			}
 
 			if ( tile.activated && tile.part.containment ) {
@@ -1327,6 +1259,7 @@ var Part = class {
 			}
 		} else {
 			$tooltip_description.textContent = this.description;
+			$tooltip_flavor.textContent = this.part.flavor || '';
 
 			if ( this.erequires && !(game.upgrade_objects[this.erequires].level >= this.erequiresLevel) ) {
 				$tooltip_cost.textContent = 'LOCKED';
@@ -1344,9 +1277,9 @@ var part_settings;
 var part;
 var cell_prefixes = ['', 'Dual ', 'Quad ', "Octa ", "Hexdeca "];
 var prefixes = ['Basic ', 'Advanced ', 'Super ', 'Wonderous ', 'Ultimate '];
-var cell_power_multipliers = [1, 4, 12, 28, 64];
-var cell_heat_multipliers = [1, 8, 36, 100, 264];
-var cell_counts = [1, 2, 4, 8, 16];
+//var cell_power_multipliers = [1, 4, 12]; // for >4 cells
+//var cell_heat_multipliers = [1, 8, 36]; // for >4 cells
+//var cell_counts = [1, 2, 4]; // for >4 cells
 
 var create_part = function(part, level=part.level) {
 	if ( level ) {
@@ -1363,12 +1296,32 @@ var create_part = function(part, level=part.level) {
 				part.base_description = part.base_description
 				.replace('%single_cell_description', '%multi_cell_description');
 			}
-			part.power = part.base_power * cell_power_multipliers[level - 1];
-			part.heat = part.base_heat * cell_heat_multipliers[level - 1];
-
-			part.cell_count = cell_counts[level - 1];
-			part.cell_multiplier = cell_power_multipliers[level - 1];
-			part.pulse_multiplier = 1;
+			part.pulse_multiplier = part.pulse_multiplier || 1;
+			
+			//part.cell_multiplier = cell_power_multipliers[level - 1];
+			//part.power = part.base_power * cell_power_multipliers[level - 1];
+			//part.heat = part.base_heat * cell_heat_multipliers[level - 1];
+			//part.cell_count = cell_counts[level - 1];
+			switch (part.level) {
+				case 1:
+					part.power = part.base_power;
+					part.cell_multiplier = 1;
+					part.heat = part.base_heat
+					part.cell_count = 1
+					break;
+				case 2:
+					part.power = part.base_power * 2 * (1 + part.pulse_multiplier);
+					part.cell_multiplier = 2 * (1 + part.pulse_multiplier);
+					part.heat = part.base_heat * 2 * (1 + part.pulse_multiplier) * (1 + part.pulse_multiplier);
+					part.cell_count = 2
+					break;
+				case 3:
+					part.power = part.base_power * 4 * (1 + 2 * part.pulse_multiplier);
+					part.cell_multiplier = 4 * (1 + 2 * part.pulse_multiplier);
+					part.heat = part.base_heat * 4 * (1 + 2 * part.pulse_multiplier) * (1 + 2 * part.pulse_multiplier);
+					part.cell_count = 4
+					break;
+			}
 		} else {
 			part.id = part.category + level;
 			part.title = (prefixes[level -1] || '') + part.title;
@@ -1468,9 +1421,9 @@ game.update_cell_power = function(type) {
 			}
 			if ( part.part.type === 'mitochondrium' ) {
 				part.max_base_power = part.part.base_power * (game.upgrade_objects['infused_cells'].level + 1) * Math.pow(10, game.upgrade_objects['energized_mitochondrium'].level) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
-				part.base_power = Math.min(part.max_base_power, mitochondriumPower*[1, 4, 12][part.part.level - 1])
+				part.base_power = Math.min(part.max_base_power, mitochondriumPower*part.cell_multiplier)
 				part.max_power = part.part.power * (game.upgrade_objects['infused_cells'].level + 1) * Math.pow(10, game.upgrade_objects['energized_mitochondrium'].level) * Math.pow(2, game.upgrade_objects['unleashed_cells'].level);
-				part.power = Math.min(part.max_power, mitochondriumPower*[1, 4, 12][part.part.level - 1])
+				part.power = Math.min(part.max_power, mitochondriumPower*part.cell_multiplier)
 			}
 		}
 	}
@@ -1930,7 +1883,7 @@ var click_func = function(e) {
 		return hotkeys.row(this.tile);
 	} else if ( e.altKey ) {
 		return hotkeys.column(this.tile);
-	} else if ( e.shiftKey || ( double_click_tile && last_click === e.which && double_click_tile === this.tile ) ) {
+	} else if ( e.shiftKey /*|| ( double_click_tile && last_click === e.which && double_click_tile === this.tile )*/ ) { //double click
 		if ( e.shiftKey ){
 			var part = this.tile.part;
 			var ticks = this.tile.ticks;
