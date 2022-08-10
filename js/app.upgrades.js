@@ -1067,7 +1067,7 @@ window.upgrades = function(game) {
 				game.epart_onclick(upgrade);
 			}
 		},
-		{
+		/*{
 			id: 'singularity_harnessing',
 			type: 'experimental_parts',
 			title: 'Singularity Harnessing',
@@ -1079,7 +1079,7 @@ window.upgrades = function(game) {
 			onclick: function(upgrade) {
 				game.epart_onclick(upgrade);
 			}
-		}
+		}*/
 	];
 
 	for ( var i = 1; i <= 6; i++ ) {
