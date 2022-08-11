@@ -279,7 +279,7 @@ menu {
 
 #tooltip_nav {
 	padding: 4px;
-	height: 148px;
+	height: 200px;
 	width: 668px;
 	width: 100%;
 	max-width: 100%;
@@ -1410,7 +1410,8 @@ menu {
 	/*margin-bottom: .5em;*/
 }
 
-.touch #tooltip_description {
+.touch #tooltip_description,
+.touch #tooltip_flavor {
 	display: inline;
 }
 

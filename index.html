@@ -176,6 +176,8 @@
 							<div id="tooltip_info">
 								<h2 class="headline" id="tooltip_name" title="Name"></h2>
 								<p id="tooltip_description" title="Description" class="explanitory"></p>
+								<br>
+								<p id="tooltip_flavor" title="Flavor" class="explanitory"></p>
 							</div>
 						</div>
 					</section>
@@ -221,13 +223,9 @@
 					<section id="help_section" class="page">
 						<h2 class="heading">Help</h2>
 						<div id="help" class="subpanel explanitory cms help">
-							<h4>Basic Overview</h4><p>Cells = power and heat
-							Power = money
-							Money = Bigger cells and more money
-							Lots of money = particle accelerators
-							Particle accelerators = exotic particles (EP)
-							EP = more upgrades and new toys for more power, heat and money!</p>
-							<h4>Components</h4><p><img src="img/cell_1_1.gif"><img src="img/cell_2_1.gif"><img src="img/cell_3_1.gif"><img src="img/cell_4_1.gif"><img src="img/cell_5_1.gif"><img src="img/cell_6_1.gif">
+							<h4>Disclaimer</h4><p>This section is a work in progress!
+							Information in this section may be inaccurate or incomplete.
+							Take every piece of information with a grain of salt!</p><h4>Components</h4><p><img src="img/cell_1_1.gif"><img src="img/cell_2_1.gif"><img src="img/cell_3_1.gif"><img src="img/cell_4_1.gif"><img src="img/cell_5_1.gif"><img src="img/cell_6_1.gif">
 							Power cells generate heat and power. Each cell in a given tile gives a pulse to each adjacent tile. Heat and power scale with the number of pulses recieved.
 							Pulses Recieved (U), Single cell base power (P), Single cell base heat (H), Cell count (C)
 							(M) 1 for single, 4 for double, 12 for quad
@@ -272,6 +270,8 @@
 							Particle Accelerators produce exotic particles based on the heat passing through them each tick.
 							Max Heat BEFORE upgrades (m), Max Heat (M), Heat throughput (H), Tier (T), Enhanced Acceleration Levle (E)
 							Particle production: (Ln(min(M, H)) / 10 ^ (5-T)) * (min(M, H) / m) * 10^E
+							Ln(x) - The natural log (base e) of x
+							min(x, y) - the lowest value between x and y
 							<div class="has_spoiler"><button class="show_spoiler">Usage</button>
 							<img src="img/help/pa_spoiler_1.png" class="spoiler">
 							<img src="img/help/pa_spoiler_2.png" class="spoiler">
@@ -333,107 +333,62 @@
 						<div id="about" class="subpanel explanitory cms">
 							<button id="show_reactor" class="nav" data-section="reactor_upgrades" data-page="reactor_section">Back to Reactor</button>
 							<section class="patch">
-								<h3>ZenMod v0.1.9 - August 7th 2022</h3>
+								<h3>Bandage solution - August 10th 2022</h3>
+									<li>Disabled the ability to unlock black hole accelerators as they are 100% broken.</li>
+								<h3>ZenMod v0.2.0 - July 25th - August 9th 2022</h3>
+								<h1>Be sure to double check your cooling capability and heat generation if you are using experimental cells! This fix may cause an unexpected increase in heat generation!</h1>
+								<h3>Quick fix - August 9th 2022</h3>
+									<li>Unleashed Cells no longer reduces heat related effects from experimental cell upgrades.</li>
+								<h3>ZenMod v0.2.0 - July 25th - August 9th 2022</h3>
+								<p>NOTE: this is every ZenMod change (that I remember XD). Each section is in chronological order</p>
 								<ul>
+									<li>Additions:</li>
+									<ul>
+										<li>Perpetual Experimental Cell upgrades.</li>
+
+										<li>Chlorophymium.</li>
+
+										<li>Mitochdonrium.</li>
+
+										<li>Many upgrades now have a second tier.</li>
+										<li>Particle accelerators now have a standard upgrade.</li>
+										<li>Approximate EP per tick display.</li>
+										<li>Bang For Your Buck upgrade.</li>
+
+										<li>Increase utility prices upgrade.</li>
+
+										<li>Coolant Innovation upgrade.</li>
+									</ul>
 									<li>Changes</li>
 									<ul>
+										<li>Replaced every texture with similar ones of my own.</li>
+
+										<li>Vent and Plating boosts for components multiply together instead of adding and are half as strong.</li>
+
+										<li>Reorganized upgrades.</li>
+
+										<li>Made help helpful.</li>
+
 										<li>Heavily optimized the protium code that I ruined.</li>
 										<li>Reactor meltdowns no longer instantly save the game.</li>
 										<li>The game is immediately paused on loading or importing.</li>
 										<li>Moved the Coolant Innovation upgrade.</li>
-									</ul>
-								<ul>
-							</section>
-							<section class="patch">
-								<h3>ZenMod v0.1.8 - August 6th 2022</h3>
-								<ul>
-									<li>Additions:</li>
-									<ul>
-										<li>Coolant Innovation.</li>
-									</ul>
-									<li>Changes</li>
-									<ul>
-										<li>Made help helpful.</li>
-									</ul>
-								<ul>
-							</section>
-							<section class="patch">
-								<h3>ZenMod v0.1.7 - August 5th 2022</h3>
-								<ul>
-									<li>Additions:</li>
-									<ul>
-										<li>Increase utility prices.</li>
-									</ul>
-								<ul>
-							</section>
-							<section class="patch">
-								<h3>ZenMod v0.1.6 - July 31st, 2022</h3>
-								<ul>
-									<li>Changes:</li>
-									<ul>
-										<li>Reorganized upgrades.</li>
-									</ul>
-									<li>Additions:</li>
-									<ul>
-										<li>Many upgrades now have a second tier.</li>
-										<li>Particle accelerators now have a standard upgrade.</li>
-										<li>Approximate EP per tick display.</li>
-										<li>Bang For Your Buck.</li>
-									</ul>
-								<ul>
-							</section>
-							
-							<section class="patch">
-								<h3>ZenMod v0.1.4 - July 29th, 2022</h3>
-								<ul>
-									<li>Additions:</li>
-									<ul>
-										<li>Added mitochdonrium.</li>
-									</ul>
-								<ul>
-							</section>
 
-							<section class="patch">
-								<h3>ZenMod v0.1.3 - July 28th, 2022</h3>
-								<ul>
-									<li>Changes:</li>
-									<ul>
-										<li>Vent and Plating boosts for components multiply together instead of adding.</li>
+										<li>Made the tooltip box larger.</li>
+										<li>Added flavor text to every component.</li>
+										<li>Double Click no longer acts as shit + click</li>
 									</ul>
-								<ul>
-							</section>
-
-							<section class="patch">
-								<h3>ZenMod v0.1.2 - July 27th, 2022</h3>
-								<ul>
-									<li>Bug fixes:</li>
+									<li>Bug fixes</li>
 									<ul>
+										<li>You can no longer place locked components.</li>
 										<li>You can no longer place locked components^2.</li>
 										<li>All accelerators no hold a max of 100 heat to prevent abuse of higher tiers.</li>
+
+										<li>Reduce Heat to 0 objective no longer requires you to manually reduce heat.</li>
+										<li>Improved Power Lines is no no longer doing double the intended effect.</li>
 									</ul>
 								<ul>
 							</section>
-
-							<section class="patch">
-								<h3>ZenMod v0.1.1 - July 26th, 2022</h3>
-								<ul>
-									<li>Additions:</li>
-									<ul>
-										<li>Implemented Chlorophymium.</li>
-									</ul>
-								<ul>
-							</section>
-
-							<section class="patch">
-								<h3>ZenMod v0.1.0 - July 25th, 2022</h3>
-								<ul>
-									<li>Retexture:</li>
-									<ul>
-										<li>Replaced every texture with similar ones of my own.</li>
-									</ul>
-								<ul>
-							</section>
-
 
 							<section class="patch">
 								<h3>v1.3.2 - June 14th, 2018</h3>

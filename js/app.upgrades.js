@@ -178,7 +178,7 @@ window.upgrades = function(game) {
 			cost: 100,
 			multiplier: 10,
 			onclick: function(upgrade) {
-				game.auto_sell_multiplier = .01 * (upgrade.level + game.upgrade_objects['improved_power_lines'].level);
+				game.auto_sell_multiplier = .01 * (upgrade.level + game.upgrade_objects['improved_power_lines_2'].level);
 			}
 		},
 		{
@@ -602,6 +602,19 @@ window.upgrades = function(game) {
 					if ( part.category === 'cell' ) {
 						part.base_heat = part.part.base_heat * Math.pow(2, upgrade.level);
 						part.heat = part.part.heat * Math.pow(2, upgrade.level);
+						switch (part.part.type) {
+							case 'protium':
+								part.base_heat *= Math.pow(2, game.upgrade_objects['unstable_protium'].level);
+								part.heat *= Math.pow(2, game.upgrade_objects['unstable_protium'].level);
+								break;
+							case 'chlorophymium':
+								part.base_heat *= Math.pow(game.upgrade_objects['lunar_chlorophymium'].level+1, 2);
+								part.heat *= Math.pow(game.upgrade_objects['lunar_chlorophymium'].level+1, 2);
+								break;
+							case 'mitochondrium':
+								part.base_heat *= Math.pow(10, game.upgrade_objects['energized_mitochondrium'].level);
+								part.heat *= Math.pow(10, game.upgrade_objects['energized_mitochondrium'].level);
+						}
 					}
 				}
 
@@ -771,7 +784,7 @@ window.upgrades = function(game) {
 				// Nothing, used in formulas
 			}
 		},
-		/* Killing these since they are OP
+		/* Killing these since they are OP --- TheZen9: I might make this work... >:)
 		{
 			id: 'force_particle_research',
 			type: 'experimental_boost',
@@ -1059,8 +1072,9 @@ window.upgrades = function(game) {
 			type: 'experimental_parts',
 			title: 'Singularity Harnessing',
 			description: 'Allows you to use Black Hole Particle Accelerators. When purchased, the EP cost of other experimental part upgrades increases.',
+			flavor: 'Temporarily disabled',
 			erequires: 'laboratory',
-			erequiresLevel: 1,
+			erequiresLevel: 2,
 			ecost: 10000,
 			levels: 1,
 			onclick: function(upgrade) {
