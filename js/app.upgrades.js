@@ -1067,19 +1067,20 @@ window.upgrades = function(game) {
 				game.epart_onclick(upgrade);
 			}
 		},
-		/*{
+		{
 			id: 'singularity_harnessing',
 			type: 'experimental_parts',
 			title: 'Singularity Harnessing',
 			description: 'Allows you to use Black Hole Particle Accelerators. When purchased, the EP cost of other experimental part upgrades increases.',
+			flavor: 'Temporarily disabled',
 			erequires: 'laboratory',
-			erequiresLevel: 1,
+			erequiresLevel: 2,
 			ecost: 10000,
 			levels: 1,
 			onclick: function(upgrade) {
 				game.epart_onclick(upgrade);
 			}
-		}*/
+		}
 	];
 
 	for ( var i = 1; i <= 6; i++ ) {
