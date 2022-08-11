@@ -189,7 +189,7 @@ var cnItems = {
     "Potent  Dolorium Cell": "强效 Dolorium 电池",
     "Potent  Nefastium Cell": "强效 Nefastium 电池",
     "Potent  Plutonium Cell": "强效钚电池",
-    "Potent  Seaborgium Cell": "强效 Seaborgium 电池",
+    "Potent  Seaborgium Cell": "强效𬭳电池",
     "Potent  Thorium Cell": "强效钍电池",
     "Potent  Uranium Cell": "强效铀电池",
     "Quad Uranium Cell": "四铀电池",
@@ -425,7 +425,7 @@ var cnPrefix = {
     "": "",
     "": "",
     "Rebooting the reactor will remove all parts, regular upgrades and money. Only your current experimental upgrades and EP will stay with you.": "重新启动反应堆将移除所有部件、定期升级和金钱。 只有您当前的实验性升级和 EP 将与您同在。",
-    "": "",
+    "All of the above applies, however this will undo all your experiment upgrades and refund all your Exotic Particles.": "以上所有内容均适用，但这将撤消您的所有实验升级并退还您所有的异域粒子。",
 }
 
 //需处理的后缀
