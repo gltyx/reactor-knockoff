@@ -15,6 +15,7 @@ html {
 * {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
+	user-select: none;
 }
 
 html {
@@ -160,8 +161,8 @@ menu {
 	display: none;
 }
 
-#stats_section {
-}
+/*#stats_section {
+}*/
 
 #stats_section .heading {
 	font-size: .9em;
@@ -329,11 +330,6 @@ menu {
 	opacity: .5;
 }
 
-#parts_section .part.part_active {
-	box-shadow: 0px 0px 1px 1px #59c435;
-	background: #59c435;
-}
-
 #parts_section .part .image,
 #all_upgrades .image,
 #all_upgrades .image,
@@ -434,7 +430,7 @@ menu {
 	line-height: 16px;
 	text-align: right;
 	position: relative;
-	background: #999;
+	background: #555;
 	padding-right: 2px;
 }
 
@@ -574,14 +570,25 @@ menu {
  // Navs
 ////////////////////////// */
 
-#reactor_upgrades .explanitory button,
+#reactor_upgrades .explanitory button {
+	padding: 0 1em .1em;
+	margin: 0;
+	border: 8px solid #0f0;
+	border-image: url("../img/small_button_off_darkbg.png") 8 8 stretch;
+	background-color: #555;
+	color: #fff;
+	outline: none;
+	transition: background-color .01s linear;
+	line-height: 1;
+}
+
 #tooltip button,
 #nav button {
 	padding: 0 1em .1em;
 	margin: 0;
 	border: 8px solid #0f0;
 	border-image: url("../img/small_button_off.png") 8 8 stretch;
-	background-color: #999;
+	background-color: #555;
 	color: #fff;
 	outline: none;
 	transition: background-color .01s linear;
@@ -593,13 +600,17 @@ menu {
 }
 
 #reactor_upgrades .explanitory button:hover,
-#reactor_upgrades .explanitory button:focus,
+#reactor_upgrades .explanitory button:focus {
+	border-image: url("../img/small_button_on_darkbg.png") 8 8 stretch;
+	background-color: #888;
+}
+
 #tooltip button:hover,
 #tooltip button:focus,
 #nav button:hover,
 #nav button:focus {
 	border-image: url("../img/small_button_on.png") 8 8 stretch;
-	background-color: #CCC;
+	background-color: #888;
 }
 
 #main.touch #tooltip_text button {
@@ -615,11 +626,15 @@ menu {
 	border-top: 0;
 }
 
-#reactor_upgrades .explanitory button:active,
+#reactor_upgrades .explanitory button:active {
+	border-image: url("../img/small_button_down_darkbg.png") 8 8 stretch;
+	background-color: #888;
+}
+
 #tooltip button:active,
 #nav button:active {
 	border-image: url("../img/small_button_down.png") 8 8 stretch;
-	background-color: #CCC;
+	background-color: #888;
 }
 
 #tooltip_nav {
@@ -1517,16 +1532,23 @@ menu {
 	flex: 1;
 }
 
-#reactor_stats .stat,
 #main .subpanel {
-	border: 4px solid #222C38;
+	border: 4px solid #222;
 	border-image: url("../img/inner_border.png") 4 4 stretch;
+}
+
+#reactor_stats .stat,
+#upgrades_section .subpanel,
+#reactor_upgrades .subpanel {
+	border: 4px solid #222;
+	background-color: #555;
+	border-image: url("../img/inner_border_text.png") 4 4 stretch;
 }
 
 #stats_section button {
 	border: 8px solid #76809b;
 	border-image: url("../img/inner_border_alt_flip.png") 8 8 stretch;
-	background-color: #999;
+	background-color: #555;
 	bottom: 0;
 	color: #fff;
 }
@@ -1534,10 +1556,10 @@ menu {
 #stats_section button:hover,
 #stats_section button:focus {
 	border-image: url("../img/inner_border_alt_flip_active.png") 8 8 stretch;
-	background-color: #CCC;
+	background-color: #888;
 }
 
 #stats_section button:active {
 	border-image: url("../img/inner_border_alt_flip_down.png") 8 8 stretch;
-	background-color: #CCC;
+	background-color: #888;
 }
