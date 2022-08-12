@@ -243,7 +243,7 @@ var cnItems = {
     "Perpetual Capacitors": "永续电容器",
     "Plating holds 100% more heat per level of upgrade (additive with self).": "每升级一级，电镀的热量增加 100%（与自身相加）。",
     "Plutonium Cell  cells produce 100% more power per level of upgrade (additive with self).": "Plutonium Cell 电池每升级一级（与自身相加）产生的功率增加 100%。",
-    "": "",
+    "Outlets move heat from the reactor into adjacent components.\n\t\t\t\t\t\t\tBase transfer (T), Sum of all capacitor tiers (C": "出口将热量从反应堆转移到相邻的组件。\n\t\t\t\t\t\t\t基础转移（T），所有电容器层的总和（C",
     "": "",
     "": "",
     "": "",
