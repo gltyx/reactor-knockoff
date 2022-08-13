@@ -280,8 +280,6 @@ var update_interface = function() {
 			part.affordableUpdated = false;
 		}
 	}
-
-	//console.log(performance.now() - start_ui_loop);
 };
 ui.update_interface = update_interface;
 
@@ -302,8 +300,6 @@ ui.say = function(type, name, val) {
 		}
 	} else {
 	}
-
-	//console.log(arguments);
 };
 
 /////////////////////////////

@@ -139,7 +139,7 @@ var Game = class {
 		this.ui;
 
 		// settings
-		this.version = 'Z0.2.1';
+		this.version = 'Z0.2.1F12';
 		this.base_cols = 14;
 		this.base_rows = 11;
 		this.max_cols = 35;
@@ -2517,8 +2517,11 @@ var _game_loop = function() {
 			ui.say('var', 'current_money', game.current_money);
 
 			// Extreme capacitors frying themselves
-			for ( tile of active_extreme_capacitor ) {
-				tile.setHeat_contained(tile.heat_contained + (sell_amount * game.auto_sell_ratio * power_sell_percent * .5));
+			if (active_extreme_capacitor.length > 0) {
+				var exCapRatio = active_extreme_capacitor[0].part.reactor_power * active_extreme_capacitor.length / max_power
+				for ( tile of active_extreme_capacitor ) {
+					tile.setHeat_contained(tile.heat_contained + (sell_amount * exCapRatio * game.auto_sell_ratio * power_sell_percent * .5) / active_extreme_capacitor.length);
+				}
 			}
 		}
 	}
