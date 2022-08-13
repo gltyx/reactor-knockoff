@@ -31,6 +31,7 @@ body {
 	display: table;
 	margin: auto;
 	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
 	overflow: scroll;
 }
 
@@ -49,6 +50,7 @@ button {
 	border: none;
 	box-shadow: none;
 	-webkit-appearance: none;
+	appearance: none;
 	max-width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -281,8 +283,7 @@ menu {
 #tooltip_nav {
 	padding: 4px;
 	height: 200px;
-	width: 668px;
-	width: 100%;
+	width: 1144px;
 	max-width: 100%;
 }
 
@@ -576,16 +577,22 @@ menu {
 	border: 8px solid #0f0;
 	border-image: url("../img/small_button_off_darkbg.png") 8 8 stretch;
 	background-color: #555;
+	width: 150px;
 	color: #fff;
 	outline: none;
 	transition: background-color .01s linear;
 	line-height: 1;
 }
 
+.wide_buttons button {
+	width: 375px !important;
+}
+
 #tooltip button,
 #nav button {
 	padding: 0 1em .1em;
 	margin: 0;
+	width: 150px;
 	border: 8px solid #0f0;
 	border-image: url("../img/small_button_off.png") 8 8 stretch;
 	background-color: #555;
@@ -635,6 +642,46 @@ menu {
 #nav button:active {
 	border-image: url("../img/small_button_down.png") 8 8 stretch;
 	background-color: #888;
+}
+
+.slider {
+	-webkit-appearance: none;  /* Override default CSS styles */
+	appearance: none;
+	width: 200px; /* Full-width */
+	height: 10px; /* Specified height */
+	background: #ccc; /* Grey background */
+	outline: none; /* Remove outline */
+	opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+	-webkit-transition: .2s; /* 0.2 seconds transition on hover */
+	transition: opacity .2s;
+	cursor: pointer; /* Cursor on hover */
+}
+
+.slider:hover {
+	opacity: 1; /* Fully shown on mouse-over */
+}
+
+.slider::-webkit-slider-thumb {
+	appearance: none;
+	width: 5px;
+	height: 20px;
+	background: #222;
+}
+
+.slider::-moz-range-thumb {
+	appearance: none;
+	width: 5px;
+	height: 20px;
+	background: #222;
+}
+
+#slider_buttons button {
+	width: 250px;
+}
+
+#slider_buttons p {
+	display:inline-block;
+	width: 50px;
 }
 
 #tooltip_nav {
@@ -1506,8 +1553,7 @@ menu {
 	margin: 4px 3px 0 0;
 	padding: 2px 0 6px 6px;
 	-webkit-flex: 1;
-	/* This breaks ie11 all to hell so...
-	flex: 1; */
+	flex: 1;
 }
 
 #main .panel_holder:last-child .panel {

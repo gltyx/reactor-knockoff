@@ -7,6 +7,7 @@ var UI = function() {
 	this.init = function(game) {
 		this.game = game;
 		Object.keys(toggle_buttons).forEach((f)=>update_button(f)())
+		Object.keys(sliders).forEach((f)=>update_slider(f)())
 		setTimeout(update_interface, update_interface_interval);
 	}
 };
@@ -630,6 +631,81 @@ create_toggle_button('#offline_tick', 'Disable Offline Tick', 'Enable Offline Ti
 	true,
 	function(state) {
 		ui.game.offline_tick = state || ui.game.offline_tick;
+	}
+)
+
+/////////////////////////////
+// Slider UI
+/////////////////////////////
+
+var sliders = {};
+
+var slider_saves = function() {
+	var ssliders = {};
+	for (var slider of Object.keys(sliders)) {
+		ssliders[slider] = sliders[slider].value();
+	}
+	return ssliders
+}
+ui.slider_saves = slider_saves;
+
+var slider_loads = function(sliders_v) {
+	for (var [slider, value] of Object.entries(sliders_v)) {
+		var slider_obj = sliders[slider];
+		if ( slider_obj ) {
+			if (slider_obj.load_func) {
+				slider_obj.load_func(value)
+			}
+			slider_obj.set(value);
+			slider_obj.update_text();
+		}
+	}
+}
+ui.slider_loads = slider_loads;
+
+var update_slider = function(slider) {
+	return sliders[slider]['update_text']
+}
+
+var create_slider = function(slider, sliderText, prefix, suffix, min, max, defval, step) {
+	var $slider = $(slider);
+	var $sliderText = $(sliderText);
+	$slider.min = min
+	$slider.max = max
+	$slider.step = step
+	$slider.value = defval
+	// Initiate with some text in the button so it isn't empty when something goes wrong when starting
+	$sliderText.textContent = prefix + suffix;
+	return (value, adjust_callback, load_func) => {
+		var update_text = () => $sliderText.textContent = prefix + Math.round(100 * (value() || defval)) + suffix;
+		sliders[slider] = {update_text: update_text, value: value,
+		                          set: adjust_callback, load_func: load_func};
+		$slider.oninput = function() {
+			adjust_callback($slider.value)
+			update_text();
+		};
+	};
+};
+
+// Heat Control Ratio
+create_slider('#heat_control_slider', '#heat_control_text', '', '%', 0, 1, 1, 0.01)(
+	()=>ui.game.heat_control_ratio,
+	function (value) {
+		window.set_heat_control_ratio(value)
+	},
+	function (value) {
+		$('#heat_control_slider').value = value
+	}
+)
+
+// Auto Sell Ratio
+create_slider('#auto_sell_slider', '#auto_sell_text', '', '%', 0, 1, 0, 0.01)(
+	()=>ui.game.auto_sell_ratio,
+	function (value) {
+		window.set_auto_sell_ratio(value)
+	},
+	function (value) {
+		$('#auto_sell_slider').value = value
 	}
 )
 

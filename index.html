@@ -117,11 +117,24 @@
 								<button id="options" class="nav" data-section="reactor_upgrades" data-page="options_section">Options</button>
 								<button id="show_help" class="nav" data-section="reactor_upgrades" data-page="help_section">Help</button>
 								<button id="show_about" class="nav" data-section="reactor_upgrades" data-page="about_section">About</button>
+								<br>
+								<button id="pause_toggle"></button>
 							</menu>
 
-							<menu>
-								<button id="auto_sell_toggle"></button>
+							<menu id="slider_buttons">
 								<button id="auto_buy_toggle"></button>
+								<div>
+									<button id="auto_sell_toggle"></button>
+									<br>
+									<input type="range" class="slider" id="auto_sell_slider">
+									<p id="auto_sell_text">1</p>
+								</div>
+								<div>
+									<button id="heat_control_toggle"></button>
+									<br>
+									<input type="range" class="slider" id="heat_control_slider">
+									<p id="heat_control_text">1</p>
+								</div>
 							</menu>
 						</div>
 
@@ -130,7 +143,6 @@
 							</menu>
 
 							<menu>
-								<button id="heat_control_toggle"></button>
 							</menu>
 						</div>
 
@@ -142,7 +154,6 @@
 							</menu>
 
 							<menu>
-								<button id="pause_toggle"></button>
 							</menu>
 						</div>
 					</menu>
@@ -282,8 +293,6 @@
 					<section id="options_section" class="page">
 						<h2 class="heading">Options</h2>
 						<div id="options" class="subpanel explanitory cms">
-							<p><button id="enable_google_drive_save">Enable Google Drive Online Save</button></p>
-							<p><button id="enable_local_save">Enable Local Save Only</button></p>
 							<div>
 								<p><button id="trigger_save">Save game</button>
 								<button id="export_save">Export save</button>
@@ -304,7 +313,7 @@
 									</div>
 								</dialog>
 							</div>
-							<div>
+							<div class="wide_buttons">
 								<p><button id="speed_hack">Speed Hack</button>
 								<button id="offline_tick">Offline Tick</button>
 								</p>
@@ -331,8 +340,17 @@
 						<div id="about" class="subpanel explanitory cms">
 							<button id="show_reactor" class="nav" data-section="reactor_upgrades" data-page="reactor_section">Back to Reactor</button>
 							<section class="patch">
-								<h3>Visual Change - August 12th 2022</h3>
-									<li>Made Buttons darker for readability.</li>
+								<h3>0.2.1 - August 12th 2022</h3>
+									<li>Changes</li>
+									<ul>
+										<li>Made Buttons darker for readability.</li>
+										<li>Moved the pause button.</li>
+										<li>Normalized button size for each section.</li>
+										<li>Added tuning slider for Heat Controller.</li>
+										<li>Added tuning slider for Auto Sell.</li>
+										<li>Window Width is now constant.</li>
+										<li>Removed all traces of Google Drive Online Save (It wasn't useable anyway)</li>
+									</ul>
 								<h3>ZenMod v0.2.0 - July 25th - August 9th 2022</h3>
 								<h3>Bandage solution - August 10th 2022</h3>
 									<li>Disabled the ability to unlock black hole accelerators as they are 100% broken.</li>
@@ -543,15 +561,15 @@
 
 								<div id="experimental_parts"></div>
 							</div>
-
-							<div id="reboot_section" class="explanitory">
+							
+							<div id="reboot_section" class="explanitory wide_buttons">
 								<button id="reboot">Reboot for <span id="reboot_exotic_particles">0</span> Exotic Particles (EP)</button>
 								<p>
 									Rebooting the reactor will remove all parts, regular upgrades and money. Only your current experimental upgrades and EP will stay with you.
 								</p>
 							</div>
 
-							<div id="refund_section" class="explanitory">
+							<div id="refund_section" class="explanitory wide_buttons">
 								<button id="refund">Reboot and refund <span id="refund_exotic_particles">0</span> Exotic Particles</button>
 								<p>
 									All of the above applies, however this will undo all your experiment upgrades and refund all your Exotic Particles.
