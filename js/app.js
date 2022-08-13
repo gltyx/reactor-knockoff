@@ -2520,7 +2520,7 @@ var _game_loop = function() {
 			if (active_extreme_capacitor.length > 0) {
 				var exCapRatio = active_extreme_capacitor[0].part.reactor_power * active_extreme_capacitor.length / max_power
 				for ( tile of active_extreme_capacitor ) {
-					tile.setHeat_contained(tile.heat_contained + (sell_amount * exCapRatio * game.auto_sell_ratio * power_sell_percent * .5) / active_extreme_capacitor.length);
+					tile.setHeat_contained(tile.heat_contained + (sell_amount * exCapRatio * .5 / active_extreme_capacitor.length));
 				}
 			}
 		}
