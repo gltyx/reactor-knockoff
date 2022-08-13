@@ -265,6 +265,10 @@ menu {
 	margin: 2px 0 0 2px;
 }
 
+#reactor_upgrades {
+	width: 1144px;
+}
+
 #more_stats {
 	display: none;
 }
