@@ -179,6 +179,7 @@ window.upgrades = function(game) {
 			multiplier: 10,
 			onclick: function(upgrade) {
 				game.auto_sell_multiplier = .01 * (upgrade.level + game.upgrade_objects['improved_power_lines_2'].level);
+				$('#auto_sell_slider').max = game.auto_sell_multiplier;
 			}
 		},
 		{
@@ -191,6 +192,7 @@ window.upgrades = function(game) {
 			multiplier: 10,
 			onclick: function(upgrade) {
 				game.auto_sell_multiplier = .01 * (upgrade.level + game.upgrade_objects['improved_power_lines'].level);
+				$('#auto_sell_slider').max = game.auto_sell_multiplier;
 			}
 		},
 
