@@ -1076,7 +1076,7 @@ window.upgrades = function(game) {
 			description: 'Allows you to use Black Hole Particle Accelerators. When purchased, the EP cost of other experimental part upgrades increases.',
 			flavor: 'Temporarily disabled',
 			erequires: 'laboratory',
-			erequiresLevel: 2,
+			erequiresLevel: 1,
 			ecost: 10000,
 			levels: 1,
 			onclick: function(upgrade) {
@@ -1090,7 +1090,7 @@ window.upgrades = function(game) {
 			id: 'improved_particle_accelerators' + i,
 			type: 'experimental_particle_accelerators',
 			title: 'Improved ' + game.part_objects['particle_accelerator' + i].part.title,
-			description: 'Increase the maximum heat that ' + game.part_objects['particle_accelerator' + i].part.title + 's can use to create Exotic Particles by 100% per level of upgrade (additive with self).',
+			description: 'Increase the maximum heat that ' + game.part_objects['particle_accelerator' + i].part.title + 's can use and contain to create Exotic Particles by 100% per level of upgrade (additive with self).',
 			erequires: 'laboratory',
 			erequiresLevel: 1,
 			ecost: 200 * i,
@@ -1101,6 +1101,7 @@ window.upgrades = function(game) {
 
 					part = game.part_objects['particle_accelerator' + i];
 					part.ep_heat = part.part.base_ep_heat * (upgrade.level + 1);
+					part.containment = part.part.base_containment * (upgrade.level + 1)
 					part.updateDescription();
 				}
 			})(i)

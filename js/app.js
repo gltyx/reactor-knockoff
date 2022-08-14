@@ -98,6 +98,7 @@ More Upgrades
 		Upgrade to reduce extreme capacitor heat generation
 		Upgrade to increase extreme coolant conversion
 	QOL
+		? Powerline Controller - Keep power stored in the reactor equivalent to heat generation
 		? Component Discount Experimental Upgrade
 		? Starting Cash Experimental Upgrade
 More components
@@ -139,7 +140,7 @@ var Game = class {
 		this.ui;
 
 		// settings
-		this.version = 'Z0.2.1F12';
+		this.version = 'Z0.2.2';
 		this.base_cols = 14;
 		this.base_rows = 11;
 		this.max_cols = 35;
@@ -2176,14 +2177,30 @@ var _game_loop = function() {
 					tile.setHeat_contained(tile.heat_contained + (tile.heat / 2));
 					power_add += tile.heat / 2;
 				} else {
+					//console.log(tile)
 					tile.setHeat_contained(tile.heat_contained + tile.heat);
+					if ( tile_part.category === 'particle_accelerator' ) {
+						tile.heat_this_tick = (tile.heat_this_tick || 0 ) + tile.heat;
+					}
 				}
 			}
 
 			if ( tile_part.category === 'particle_accelerator' ) {
-				if ( tile.heat_contained ) {
+				// Particle Accelerator 6 - take heat and power from reactor
+				if ( tile_part.id === 'particle_accelerator6' ) {
+					var pa_transfer = Math.min(tile_part.transfer, current_power, game.current_heat);
+
+					if ( pa_transfer && pa_transfer > 0 ) {
+						current_power -= pa_transfer;
+						game.current_heat -= pa_transfer;
+						tile.setHeat_contained(tile.heat_contained + pa_transfer);
+						tile.heat_this_tick = (tile.heat_this_tick || 0 ) + pa_transfer;
+					}
+				}
+				if ( tile.heat_this_tick ) {
 					// Which more, tile heat or max heat, get the lesser
-					let lower_heat = Math.min(tile.heat_contained, tile_part.ep_heat);
+					let lower_heat = Math.min(tile.heat_this_tick, tile_part.ep_heat);
+					tile.heat_this_tick = 0;
 					let ep_chance_percent = lower_heat / tile_part.part.base_ep_heat;
 					let ep_chance = Math.log(lower_heat) / Math.pow(10, 5 - tile_part.part.level) * ep_chance_percent * Math.pow(10, game.upgrade_objects['enhanced_acceleration'].level);
 					let ep_gain = 0;
@@ -2336,15 +2353,16 @@ var _game_loop = function() {
 
 			// Not sure if the lies above are useful with this
 			// Let the vent take as much heat as it can handle
-			if ( tile_containment.part.part.category === 'vent' && transfer_heat < tile_containment.part.vent - tile_containment.heat_contained ) {
-				transfer_heat = tile_containment.part.vent - tile_containment.heat_contained;
+			if ( tile_containment.part.part.category === 'vent' && transfer_heat < tile_containment.part.vent * (1 + vent_multiplier/100) - tile_containment.heat_contained ) {
+				transfer_heat = tile_containment.part.vent * (1 + vent_multiplier/100) - tile_containment.heat_contained;
 			}
-
+			console.log(fmt(tile_containment.part.vent * (1 + vent_multiplier/100) - tile_containment.heat_contained))
 			transfer_heat = Math.min(
 				transfer_heat,
 				max_heat_transfer,
 				tile.heat_contained
 			);
+			console.log(fmt(transfer_heat), fmt(max_heat_transfer), fmt(tile.heat_contained))
 
 			if ( transfer_heat >= 1 ) {
 				if ( tile_containment.part.id === 'coolant_cell6' ) {
@@ -2352,6 +2370,9 @@ var _game_loop = function() {
 					power_add += transfer_heat / 2;
 				} else {
 					tile_containment.setHeat_contained(tile_containment.heat_contained + transfer_heat);
+					if ( tile_containment.part.category === 'particle_accelerator') {
+						tile_containment.heat_this_tick = (tile_containment.heat_this_tick || 0 ) + transfer_heat;
+					}
 				}
 
 				tile.setHeat_contained(tile.heat_contained - transfer_heat);
@@ -2380,6 +2401,9 @@ var _game_loop = function() {
 					shared_heat = Math.min(shared_heat, tile_containment.vent-tile_containment.heat_contained)
 				}
 				tile_containment.setHeat_contained(tile_containment.heat_contained + shared_heat);
+				if ( tile_containment.part.category === 'particle_accelerator') {
+					tile_containment.heat_this_tick = (tile_containment.heat_this_tick || 0 ) - shared_heat;
+				}
 			}
 
 			heat_remove += shared_heat;
@@ -2408,6 +2432,9 @@ var _game_loop = function() {
 						power_add += reduce_heat / game.active_tiles_2d.length / 2;
 					} else {
 						tile.setHeat_contained(tile.heat_contained + (reduce_heat / game.active_tiles_2d.length));
+						if ( tile.part.category === 'particle_accelerator') {
+							tile.heat_this_tick = (tile.heat_this_tick || 0 ) - (reduce_heat / game.active_tiles_2d.length);
+						}
 					}
 				}
 			}
@@ -2420,6 +2447,7 @@ var _game_loop = function() {
 	// Forceful Fusion
 	if ( game.heat_power_multiplier && game.current_heat > 0) {
 		power_add *= 1 + (game.heat_power_multiplier * (Math.log(game.current_heat) / Math.log(1000) / 100));
+		console.log(game.heat_power_multiplier * (Math.log(game.current_heat) / Math.log(1000) / 100))
 	}
 
 	// Add power
@@ -2467,17 +2495,6 @@ var _game_loop = function() {
 				}
 
 				tile.setHeat_contained(tile.heat_contained - vent_reduce);
-			}
-
-			// Particle Accelerator 6 - take heat and power from reactor
-			if ( tile.part.id === 'particle_accelerator6' ) {
-				var pa_transfer = Math.min(tile.part.transfer, current_power, game.current_heat);
-
-				if ( pa_transfer && pa_transfer > 0 ) {
-					current_power -= pa_transfer;
-					game.current_heat -= pa_transfer;
-					tile.setHeat_contained(tile.heat_contained + pa_transfer);
-				}
 			}
 
 			if ( tile.heat_contained > tile.part.containment ) {
