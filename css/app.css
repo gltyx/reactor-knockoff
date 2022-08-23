@@ -15,6 +15,7 @@ html {
 * {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
+	user-select: none;
 }
 
 html {
@@ -30,6 +31,7 @@ body {
 	display: table;
 	margin: auto;
 	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
 	overflow: scroll;
 }
 
@@ -48,6 +50,7 @@ button {
 	border: none;
 	box-shadow: none;
 	-webkit-appearance: none;
+	appearance: none;
 	max-width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -160,8 +163,8 @@ menu {
 	display: none;
 }
 
-#stats_section {
-}
+/*#stats_section {
+}*/
 
 #stats_section .heading {
 	font-size: .9em;
@@ -262,6 +265,10 @@ menu {
 	margin: 2px 0 0 2px;
 }
 
+#reactor_upgrades {
+	width: 1144px;
+}
+
 #more_stats {
 	display: none;
 }
@@ -280,8 +287,7 @@ menu {
 #tooltip_nav {
 	padding: 4px;
 	height: 200px;
-	width: 668px;
-	width: 100%;
+	width: 1144px;
 	max-width: 100%;
 }
 
@@ -327,11 +333,6 @@ menu {
 
 #parts_section .part.unaffordable .image {
 	opacity: .5;
-}
-
-#parts_section .part.part_active {
-	box-shadow: 0px 0px 1px 1px #59c435;
-	background: #59c435;
 }
 
 #parts_section .part .image,
@@ -434,7 +435,7 @@ menu {
 	line-height: 16px;
 	text-align: right;
 	position: relative;
-	background: #999;
+	background: #555;
 	padding-right: 2px;
 }
 
@@ -574,14 +575,31 @@ menu {
  // Navs
 ////////////////////////// */
 
-#reactor_upgrades .explanitory button,
+#reactor_upgrades .explanitory button {
+	padding: 0 1em .1em;
+	margin: 0;
+	border: 8px solid #0f0;
+	border-image: url("../img/small_button_off_darkbg.png") 8 8 stretch;
+	background-color: #555;
+	width: 150px;
+	color: #fff;
+	outline: none;
+	transition: background-color .01s linear;
+	line-height: 1;
+}
+
+.wide_buttons button {
+	width: 375px !important;
+}
+
 #tooltip button,
 #nav button {
 	padding: 0 1em .1em;
 	margin: 0;
+	width: 150px;
 	border: 8px solid #0f0;
 	border-image: url("../img/small_button_off.png") 8 8 stretch;
-	background-color: #999;
+	background-color: #555;
 	color: #fff;
 	outline: none;
 	transition: background-color .01s linear;
@@ -593,13 +611,17 @@ menu {
 }
 
 #reactor_upgrades .explanitory button:hover,
-#reactor_upgrades .explanitory button:focus,
+#reactor_upgrades .explanitory button:focus {
+	border-image: url("../img/small_button_on_darkbg.png") 8 8 stretch;
+	background-color: #888;
+}
+
 #tooltip button:hover,
 #tooltip button:focus,
 #nav button:hover,
 #nav button:focus {
 	border-image: url("../img/small_button_on.png") 8 8 stretch;
-	background-color: #CCC;
+	background-color: #888;
 }
 
 #main.touch #tooltip_text button {
@@ -615,11 +637,55 @@ menu {
 	border-top: 0;
 }
 
-#reactor_upgrades .explanitory button:active,
+#reactor_upgrades .explanitory button:active {
+	border-image: url("../img/small_button_down_darkbg.png") 8 8 stretch;
+	background-color: #888;
+}
+
 #tooltip button:active,
 #nav button:active {
 	border-image: url("../img/small_button_down.png") 8 8 stretch;
-	background-color: #CCC;
+	background-color: #888;
+}
+
+.slider {
+	-webkit-appearance: none;  /* Override default CSS styles */
+	appearance: none;
+	width: 200px; /* Full-width */
+	height: 10px; /* Specified height */
+	background: #ccc; /* Grey background */
+	outline: none; /* Remove outline */
+	opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+	-webkit-transition: .2s; /* 0.2 seconds transition on hover */
+	transition: opacity .2s;
+	cursor: pointer; /* Cursor on hover */
+}
+
+.slider:hover {
+	opacity: 1; /* Fully shown on mouse-over */
+}
+
+.slider::-webkit-slider-thumb {
+	appearance: none;
+	width: 5px;
+	height: 20px;
+	background: #222;
+}
+
+.slider::-moz-range-thumb {
+	appearance: none;
+	width: 5px;
+	height: 20px;
+	background: #222;
+}
+
+#slider_buttons button {
+	width: 250px;
+}
+
+#slider_buttons p {
+	display:inline-block;
+	width: 50px;
 }
 
 #tooltip_nav {
@@ -1491,8 +1557,7 @@ menu {
 	margin: 4px 3px 0 0;
 	padding: 2px 0 6px 6px;
 	-webkit-flex: 1;
-	/* This breaks ie11 all to hell so...
-	flex: 1; */
+	flex: 1;
 }
 
 #main .panel_holder:last-child .panel {
@@ -1517,16 +1582,23 @@ menu {
 	flex: 1;
 }
 
-#reactor_stats .stat,
 #main .subpanel {
-	border: 4px solid #222C38;
+	border: 4px solid #222;
 	border-image: url("../img/inner_border.png") 4 4 stretch;
+}
+
+#reactor_stats .stat,
+#upgrades_section .subpanel,
+#reactor_upgrades .subpanel {
+	border: 4px solid #222;
+	background-color: #555;
+	border-image: url("../img/inner_border_text.png") 4 4 stretch;
 }
 
 #stats_section button {
 	border: 8px solid #76809b;
 	border-image: url("../img/inner_border_alt_flip.png") 8 8 stretch;
-	background-color: #999;
+	background-color: #555;
 	bottom: 0;
 	color: #fff;
 }
@@ -1534,10 +1606,10 @@ menu {
 #stats_section button:hover,
 #stats_section button:focus {
 	border-image: url("../img/inner_border_alt_flip_active.png") 8 8 stretch;
-	background-color: #CCC;
+	background-color: #888;
 }
 
 #stats_section button:active {
 	border-image: url("../img/inner_border_alt_flip_down.png") 8 8 stretch;
-	background-color: #CCC;
+	background-color: #888;
 }

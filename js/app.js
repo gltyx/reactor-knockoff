@@ -98,6 +98,7 @@ More Upgrades
 		Upgrade to reduce extreme capacitor heat generation
 		Upgrade to increase extreme coolant conversion
 	QOL
+		? Powerline Controller - Keep power stored in the reactor equivalent to heat generation
 		? Component Discount Experimental Upgrade
 		? Starting Cash Experimental Upgrade
 More components
@@ -112,7 +113,6 @@ Features
 	QOL
 		Save layouts
 		Right click to sell upgrades
-		Autosell fine tuning
 		More help section info
 			Heat
 			Upgrades
@@ -120,6 +120,8 @@ Features
 		Statistics
 		Settings
 			Number formatting
+Rewrite
+	Accelerators
 */
 
 
@@ -138,7 +140,7 @@ var Game = class {
 		this.ui;
 
 		// settings
-		this.version = 'Z0.2.0-F1';
+		this.version = 'Z0.2.2';
 		this.base_cols = 14;
 		this.base_rows = 11;
 		this.max_cols = 35;
@@ -165,8 +167,10 @@ var Game = class {
 		this.loop_wait;
 		this.heat_power_multiplier;
 		this.heat_controlled;
+		this.heat_control_ratio;
 		this.manual_heat_reduce;
 		this.auto_sell_multiplier;
+		this.auto_sell_ratio;
 		this.transfer_plating_multiplier;
 		this.transfer_capacitor_multiplier;
 		this.vent_plating_multiplier;
@@ -262,6 +266,8 @@ var set_defaults = function() {
 	game.rows = game.base_rows;
 	max_heat = game.base_max_heat;
 	game.auto_sell_multiplier = 0;
+	$('#auto_sell_slider').max = game.auto_sell_multiplier;
+	game.auto_sell_ratio = 0;
 	max_power = game.base_max_power;
 	game.loop_wait = game.base_loop_wait;
 	power_multiplier = game.base_power_multiplier;
@@ -273,6 +279,7 @@ var set_defaults = function() {
 	game.transfer_plating_multiplier = 0;
 	game.heat_power_multiplier = 0;
 	game.heat_controlled = 0;
+	game.heat_control_ratio = 1;
 	game.heat_outlet_controlled = 0;
 	game.altered_max_heat = game.base_max_heat;
 	game.altered_max_power = game.base_max_power;
@@ -288,56 +295,9 @@ window.save_manager = null;
 save_manager.init(game);
 game.save_manager = save_manager;
 
-var $enable_google_drive_save = $('#enable_google_drive_save');
-var $enable_local_save = $('#enable_local_save');
-
 var local_saver = new save_manager.LocalSaver();
-var google_saver = new save_manager.GoogleSaver();
 
 var save_game = local_saver;
-
-// Local
-var enable_local_save = function(event) {
-	if ( event ) {
-		event.preventDefault();
-	}
-
-	save_game = local_saver;
-	$enable_local_save.style.display = 'none';
-	$enable_google_drive_save.style.display = null;
-	save_game.enable();
-};
-
-$enable_local_save.onclick = enable_local_save;
-
-// Google Drive
-var enable_google_drive_save = function(event) {
-	if ( event ) {
-		event.preventDefault();
-	}
-
-	if ( google_saver.loadfailed ) {
-		alert("google drive script failed to load, unable to enable feature, try reloading the page")
-		return
-	}
-
-	save_game = google_saver;
-	$enable_google_drive_save.style.display = 'none';
-	$enable_local_save.style.display = null;
-
-	save_game.enable(function() {
-		// If a saved game is found
-		if ( confirm("Save file found. Use Google Drive save file?")
-			|| !confirm("Really delete the Google Drive save file? This action cannot be undone.")
-		) {
-			document.location.reload();
-		} else {
-			save();
-		}
-	}, event);
-};
-
-$enable_google_drive_save.onclick = enable_google_drive_save;
 
 // Save handler
 var save_timeout;
@@ -387,6 +347,7 @@ var saves = function() {
 			current_exotic_particles: game.current_exotic_particles,
 			total_exotic_particles: total_exotic_particles,
 			buttons_state: game.ui.toggle_buttons_saves(),
+			slider_state: game.ui.slider_saves(),
 			protium_particles: protium_particles,
 			current_objective: current_objective,
 			last_tick_time: last_tick_time,
@@ -440,6 +401,10 @@ var loads = function(rks) {
 
 		if ( rks.buttons_state ) {
 			ui.toggle_buttons_loads(rks.buttons_state)
+		}
+
+		if ( rks.slider_state ) {
+			ui.slider_loads(rks.slider_state)
 		}
 
 		ui.say('var', 'manual_heat_reduce', game.manual_heat_reduce);
@@ -500,6 +465,10 @@ var loads = function(rks) {
 				}
 			}
 		}
+
+		
+		$('#auto_sell_slider').max = game.auto_sell_multiplier;
+		$('#auto_sell_slider').value = game.auto_sell_ratio;
 
 		update_nodes();
 		update_tiles();
@@ -936,7 +905,7 @@ var update_tiles = function() {
 
 	ui.say('var', 'stats_heat', total_heat);
 	ui.say('var', 'total_power', game.stats_power);
-	game.stats_cash = Math.ceil(max_power * game.auto_sell_multiplier);
+	game.stats_cash = Math.ceil(max_power * game.auto_sell_ratio);
 	ui.say('var', 'stats_cash', game.stats_cash);
 };
 
@@ -1823,6 +1792,14 @@ window.enable_heat_control = function() {
 	ui.say('evt', 'heat_control_enabled');
 };
 
+window.set_heat_control_ratio = function(value) {
+	game.heat_control_ratio = value;
+};
+
+window.set_auto_sell_ratio = function(value) {
+	game.auto_sell_ratio = value;
+};
+
 /////////////////////////////
 // Tile clicks
 /////////////////////////////
@@ -2200,14 +2177,30 @@ var _game_loop = function() {
 					tile.setHeat_contained(tile.heat_contained + (tile.heat / 2));
 					power_add += tile.heat / 2;
 				} else {
+					//console.log(tile)
 					tile.setHeat_contained(tile.heat_contained + tile.heat);
+					if ( tile_part.category === 'particle_accelerator' ) {
+						tile.heat_this_tick = (tile.heat_this_tick || 0 ) + tile.heat;
+					}
 				}
 			}
 
 			if ( tile_part.category === 'particle_accelerator' ) {
-				if ( tile.heat_contained ) {
+				// Particle Accelerator 6 - take heat and power from reactor
+				if ( tile_part.id === 'particle_accelerator6' ) {
+					var pa_transfer = Math.min(tile_part.transfer, current_power, game.current_heat);
+
+					if ( pa_transfer && pa_transfer > 0 ) {
+						current_power -= pa_transfer;
+						game.current_heat -= pa_transfer;
+						tile.setHeat_contained(tile.heat_contained + pa_transfer);
+						tile.heat_this_tick = (tile.heat_this_tick || 0 ) + pa_transfer;
+					}
+				}
+				if ( tile.heat_this_tick ) {
 					// Which more, tile heat or max heat, get the lesser
-					let lower_heat = Math.min(tile.heat_contained, tile_part.ep_heat);
+					let lower_heat = Math.min(tile.heat_this_tick, tile_part.ep_heat);
+					tile.heat_this_tick = 0;
 					let ep_chance_percent = lower_heat / tile_part.part.base_ep_heat;
 					let ep_chance = Math.log(lower_heat) / Math.pow(10, 5 - tile_part.part.level) * ep_chance_percent * Math.pow(10, game.upgrade_objects['enhanced_acceleration'].level);
 					let ep_gain = 0;
@@ -2269,8 +2262,12 @@ var _game_loop = function() {
 	let max_shared_heat;
 	// Reduce reactor heat parts
 	if ( game.heat_controlled && game.upgrade_objects['heat_control_operator'].level > 0 ) {
-		if (game.current_heat > max_heat) {
-			max_shared_heat = (game.current_heat - max_heat) / stat_outlet;
+		var heatTarget = max_heat
+		if (true) {
+			heatTarget *= game.heat_control_ratio
+		}
+		if (game.current_heat > heatTarget) {
+			max_shared_heat = (game.current_heat - heatTarget) / stat_outlet;
 		} else {
 			// Don't remove any heat when not in danger of overheating
 			max_shared_heat = 0;
@@ -2356,15 +2353,16 @@ var _game_loop = function() {
 
 			// Not sure if the lies above are useful with this
 			// Let the vent take as much heat as it can handle
-			if ( tile_containment.part.part.category === 'vent' && transfer_heat < tile_containment.part.vent - tile_containment.heat_contained ) {
-				transfer_heat = tile_containment.part.vent - tile_containment.heat_contained;
+			if ( tile_containment.part.part.category === 'vent' && transfer_heat < tile_containment.part.vent * (1 + vent_multiplier/100) - tile_containment.heat_contained ) {
+				transfer_heat = tile_containment.part.vent * (1 + vent_multiplier/100) - tile_containment.heat_contained;
 			}
-
+			console.log(fmt(tile_containment.part.vent * (1 + vent_multiplier/100) - tile_containment.heat_contained))
 			transfer_heat = Math.min(
 				transfer_heat,
 				max_heat_transfer,
 				tile.heat_contained
 			);
+			console.log(fmt(transfer_heat), fmt(max_heat_transfer), fmt(tile.heat_contained))
 
 			if ( transfer_heat >= 1 ) {
 				if ( tile_containment.part.id === 'coolant_cell6' ) {
@@ -2372,6 +2370,9 @@ var _game_loop = function() {
 					power_add += transfer_heat / 2;
 				} else {
 					tile_containment.setHeat_contained(tile_containment.heat_contained + transfer_heat);
+					if ( tile_containment.part.category === 'particle_accelerator') {
+						tile_containment.heat_this_tick = (tile_containment.heat_this_tick || 0 ) + transfer_heat;
+					}
 				}
 
 				tile.setHeat_contained(tile.heat_contained - transfer_heat);
@@ -2400,6 +2401,9 @@ var _game_loop = function() {
 					shared_heat = Math.min(shared_heat, tile_containment.vent-tile_containment.heat_contained)
 				}
 				tile_containment.setHeat_contained(tile_containment.heat_contained + shared_heat);
+				if ( tile_containment.part.category === 'particle_accelerator') {
+					tile_containment.heat_this_tick = (tile_containment.heat_this_tick || 0 ) - shared_heat;
+				}
 			}
 
 			heat_remove += shared_heat;
@@ -2428,6 +2432,9 @@ var _game_loop = function() {
 						power_add += reduce_heat / game.active_tiles_2d.length / 2;
 					} else {
 						tile.setHeat_contained(tile.heat_contained + (reduce_heat / game.active_tiles_2d.length));
+						if ( tile.part.category === 'particle_accelerator') {
+							tile.heat_this_tick = (tile.heat_this_tick || 0 ) - (reduce_heat / game.active_tiles_2d.length);
+						}
 					}
 				}
 			}
@@ -2440,6 +2447,7 @@ var _game_loop = function() {
 	// Forceful Fusion
 	if ( game.heat_power_multiplier && game.current_heat > 0) {
 		power_add *= 1 + (game.heat_power_multiplier * (Math.log(game.current_heat) / Math.log(1000) / 100));
+		console.log(game.heat_power_multiplier * (Math.log(game.current_heat) / Math.log(1000) / 100))
 	}
 
 	// Add power
@@ -2489,17 +2497,6 @@ var _game_loop = function() {
 				tile.setHeat_contained(tile.heat_contained - vent_reduce);
 			}
 
-			// Particle Accelerator 6 - take heat and power from reactor
-			if ( tile.part.id === 'particle_accelerator6' ) {
-				var pa_transfer = Math.min(tile.part.transfer, current_power, game.current_heat);
-
-				if ( pa_transfer && pa_transfer > 0 ) {
-					current_power -= pa_transfer;
-					game.current_heat -= pa_transfer;
-					tile.setHeat_contained(tile.heat_contained + pa_transfer);
-				}
-			}
-
 			if ( tile.heat_contained > tile.part.containment ) {
 				if ( game.auto_buy_disabled !== true && tile.heat <= 0 && tile.part.category === 'capacitor' && game.upgrade_objects['perpetual_capacitors'].level > 0 && game.current_money >= tile.part.cost * 10 ) {
 					game.current_money -= tile.part.cost * 10;
@@ -2521,7 +2518,7 @@ var _game_loop = function() {
 
 	// Auto Sell
 	if ( !game.auto_sell_disabled ) {
-		sell_amount = Math.ceil(max_power * game.auto_sell_multiplier);
+		sell_amount = Math.ceil(max_power * game.auto_sell_ratio);
 		if ( sell_amount ) {
 			let power_sell_percent;
 			if ( sell_amount > current_power ) {
@@ -2537,8 +2534,11 @@ var _game_loop = function() {
 			ui.say('var', 'current_money', game.current_money);
 
 			// Extreme capacitors frying themselves
-			for ( tile of active_extreme_capacitor ) {
-				tile.setHeat_contained(tile.heat_contained + (sell_amount * game.auto_sell_multiplier * power_sell_percent * .5));
+			if (active_extreme_capacitor.length > 0) {
+				var exCapRatio = active_extreme_capacitor[0].part.reactor_power * active_extreme_capacitor.length / max_power
+				for ( tile of active_extreme_capacitor ) {
+					tile.setHeat_contained(tile.heat_contained + (sell_amount * exCapRatio * .5 / active_extreme_capacitor.length));
+				}
 			}
 		}
 	}
@@ -2703,13 +2703,6 @@ var update_nodes = function() {
 };
 
 // Do stuff
-
-if ( localStorage.getItem('google_drive_save') ) {
-	save_game = google_saver;
-	$enable_google_drive_save.style.display = 'none';
-} else {
-	$enable_local_save.style.display = 'none';
-}
 
 ui.say('evt', 'game_inited');
 
