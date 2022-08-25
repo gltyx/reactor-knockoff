@@ -428,7 +428,7 @@ var cnItems = {
     "Purchase an Upgrade": "购买1个升级",
     "Have at least 10 active power Cells in your reactor": "在你的反应堆中至少有 10 个激活的电池",
     "Advanced Coolant Cell": "高级冷却液电池",
-    "Advanced Neutron Reflector": "Advanced Neutron Reflector",
+    "Advanced Neutron Reflector": "高级中子反射器",
     "Purchase a Perpetual power Cell upgrade": "购买永久功率电池升级",
     "Advanced Capacitor": "高级电容器",
     "Advanced Reactor Plating": "高级反应堆电镀",
