@@ -1482,7 +1482,7 @@ menu {
 }
 
 #tooltip_cost:before {
-	content: "Cost: ";
+	content: "成本: ";
 }
 
 #main.tooltip_showing #tooltip {
