@@ -511,7 +511,7 @@ var cnItems = {
     "Have 5 different kinds of components in your reactor": "反应堆中有 5 种不同的组件",
     "Have at least 10 Capacitors in your reactor": "反应堆中至少有 10 个电容器",
     "Upgrade Potent Uranium Cell to level 3 or higher": "将强效铀电池升级到 3 级或更高",
-    "": "",
+    "Have at least 5 active Quad Plutonium Cells in your reactor": "在你的反应堆中至少有 5 个活跃的四重钚电池",
     "": "",
     "": "",
     "": "",
